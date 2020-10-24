@@ -1,0 +1,792 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="ja">
+	<head>
+		<title>COVID-19 感染症動態</title>
+  	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+  	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="厚生労働省の報道発表資料をもとに、新型コロナウイルスの感染状況を動態として可視化しました。">
+	<meta property="og:title" content="COVID-19 感染症動態" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://covid19dynamics.netlify.app/index.html" />
+    <meta property="og:image" content="https://covid19dynamics.netlify.app/images/top.jpg" />
+    <meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="COVID-19 感染症動態" />
+	<meta name="twitter:description" content="厚生労働省の報道発表資料をもとに、新型コロナウイルスの感染状況を動態として可視化しました。" />
+	<meta name="twitter:image" content="https://covid19dynamics.netlify.app/images/top.jpg" />
+    <meta name="author" content="仁志">
+	<link rel="stylesheet" href="assets/css/map.css" />
+	<link rel="stylesheet" href="assets/css/maplist.css" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/add.css" />
+    <link rel="apple-touch-icon" href="https://covid19dynamics.netlify.app/images/apple-touch-icon.jpg">
+    <link rel="shortcut icon" href="https://covid19dynamics.netlify.app/images/apple-touch-icon.jpg">
+	<script src='assets/js/map.js'></script>
+    <link rel="manifest" href="./manifest.json">
+    <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').then(function() { console.log('Service Worker Registered'); });
+    }
+    </script>
+	</head>
+	<body class="is-preload" onLoad="get_kansen()">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="#" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+					<h1><strong>COVID-19 感染症動態</strong></h1>
+					<p>厚生労働省の報道発表資料をもとに、新型コロナウイルスの感染状況を動態として可視化しました。</p>
+				</div>
+			</header>
+
+		<!-- menu-toggle -->
+		<div id="menu_toggle" onclick="menu_display()"><i class="fa fa-bars" style="line-height:40px;"></i></div>
+
+<div id="menu-content"><span id="modal-close">×</span>
+<center>
+<h1><span>ＭＥＮＵ</span></h1>
+</center>
+
+<ul class="accordion-menu">
+  <li>
+    <div class="dropdownlink" onclick="link(1)"><i class="fa fa-clipboard" aria-hidden="true"></i> はじめに
+    </div>
+  </li>
+  <li>
+    <div class="dropdownlink" onclick="link(2)"><i class="fa fa-clipboard" aria-hidden="true"></i> 国内の感染者数
+    </div>
+  </li>
+  <li>
+    <div class="dropdownlink" onclick="link(5)"><i class="fa fa-clipboard" aria-hidden="true"></i> 地域分析
+    </div>
+  </li>
+  <li>
+    <div class="dropdownlink" onclick="link(9)"><i class="fa fa-clipboard" aria-hidden="true"></i> オンライン診療医療機関
+    </div>
+  </li>
+  <li>
+    <div class="dropdownlink" onclick="link(3)"><i class="fa fa-clipboard" aria-hidden="true"></i> 民間企業の取り組み
+    </div>
+  </li>
+  <li>
+    <div class="dropdownlink" onclick="link(6)"><i class="fa fa-clipboard" aria-hidden="true"></i> 感染者の初期症状
+    </div>
+  </li>
+  <li>
+    <div class="dropdownlink" onclick="link(7)"><i class="fa fa-clipboard" aria-hidden="true"></i> 関連情報など
+    </div>
+  </li>
+</ul>
+
+</div>
+
+
+		<!-- Main -->
+			<div id="main">
+
+					<section id="intro"><span id ="1"></span>
+					<h2>はじめに</h2>
+					<p>新型コロナウイルスの感染が世界中に広がっています。不安が広がってやまないですが、退院される方も増えてきていることは事実です。刻一刻と変わるウイルスの感染状況に対し、感染者数などの絶対数だけではなく、感染の流れを「動態」という形で、ウイルスの特徴などを探れないかと思い、開発しました。</p>
+					☆更新履歴☆
+						<div id="upr">
+							2020.10.15 URL変更、病床数更新<br>
+							2020. 7. 2 重症者数追加<br>
+							2020. 5.17 自衛隊中央病院の感染予防動画追加<br>
+							2020. 5.16 検査数/陽性率/医療病床/宿泊施設 表記、年代別集計/陽性者数の推移閉鎖<br>
+							2020. 5.14 民間企業の取り組み追加<br>
+							2020. 5. 6 自治体の更新履歴表示<br>
+							2020. 5. 4 18都道府県速報値に変更<br>
+							2020. 5. 3 オンライン診療マップリスト追加<br>
+							2020. 4.23 計算手法変更、更新履歴書式変更<br>
+							2020. 4.19 PCR検査実施件数をlog表記に変更、参考画像／動画追加<br>
+							2020. 4.18 年代別集計仕様変更<br>
+							2020. 4.17 都道府県別集計閉鎖、グラフ表示変更<br>
+							2020. 4.15 感染密度を現患者の密度に変更、地域分析追加<br>
+							2020. 4.12 世界の感染状況閉鎖、国内感染者数統計追加<br>
+							2020. 4.11 国内感染者数、関連リンク修正<br>
+							2020. 4. 5 全国クラスターマップ追加<br>
+							2020. 3.29 メニューボタン追加<br>
+							2020. 3.25 感染動態という形を捉えるWEBに仕様変更<br>
+							2020. 3.20 陽性患者の推移追加<br>
+							2020. 3.18 PCR検査数と陽性者数の推移追加<br>
+							2020. 3.15 クルーズ船事例、季節性インフルエンザ統計追加、日本、世界情勢追加<br>
+							2020. 3.12 サイト仕様変更<br>
+							2020. 3. 7 国内感染者数、世界の感染状況追加<br>
+							2020. 3. 2 最新情報に更新<br>
+							2020. 3. 1 本WEB公開
+						</div>
+					</section>
+
+					<section id="japan"><span id ="2"></span>
+						<h2>国内の感染者数</h2>
+							最終更新 <span id="jititai" onclick="ji_day();">自治体表示切替</span>
+							<div id = "day"></div>
+							<div id = "ji_day"></div>
+
+							<div class="balloon1">
+								<div class="faceicon1">
+									<img src="images/boy.jpg">
+								</div>
+							<div class="chatting1">
+								<div class="says1">
+									<p>陽性率は、１週間の平均値と直近の陽性率を計算し、<span id="important_moji">７％以上か否かで色分け</span>しているよ。</p>
+								</div>
+							</div>
+							</div>
+
+							<div class="balloon2">
+								<div class="faceicon2">
+									<img src="images/girl.jpg">
+								</div>
+							<div class="chatting2">
+								<div class="says2">
+									<p>病床数との比較は、入院患者と病床数（宿泊施設含む）を比較しリスク度を色分けしたよ。<span id="important_moji">赤くなるほど、リスクが高い</span>ってことね。</p>
+								</div>
+							</div>
+							</div>
+
+							<div class="balloon3">
+								<div class="faceicon3">
+									<img src="images/doctor.jpg">
+								</div>
+							<div class="chatting3">
+								<div class="says3">
+									<p>感染密度は、人口10万人あたりの現患者数を表示しているぞ。<span id="important_moji">赤くなるほど、感染の広がりが大きい地域</span>ということじゃな。</p>
+								</div>
+							</div>
+							</div>
+
+						<blockquote>
+						※「自治体表示切替」に掲載の都道府県は速報値（自治体の更新）となっています。<br>
+						※重症者数は、厚生労働省のデータを参照しています。速報値とは異なりますので、ご注意ください。<br>
+（出典：病床数は<a href="https://www.mhlw.go.jp/stf/seisakunitsuite/newpage_00023.html" target="_blank">療養状況等及び入院患者受入病床数等に関する調査について <i class="fas fa-external-link-alt"></i></a>を参照し、人口統計は<a href="https://www.e-stat.go.jp/" target="_blank">e-Stat 政府統計の総合窓口 <i class="fas fa-external-link-alt"></i></a>を参照しました。）</blockquote>
+								<div class="row gtr-uniform gtr-50">
+									<div class="col-4 col-12-small">
+										<input type="radio" id="demo-priority-low" onchange="func1()" name="demo-priority" checked>
+										<label for="demo-priority-low">全体</label>
+									</div>
+									<div class="col-4 col-12-small">
+										<input type="radio" id="demo-priority-normal" onchange="func2()" name="demo-priority">
+										<label for="demo-priority-normal">病床数との比較</label>
+									</div>
+									<div class="col-4 col-12-small">
+										<input type="radio" id="demo-priority-high" onchange="func3()" name="demo-priority">
+										<label for="demo-priority-high">感染密度</label>
+									</div>
+								</div>
+						<br>
+						<div id = "zentai">
+							<div class="box alt">
+								<div class="row gtr-50 gtr-uniform">
+									<div class="col-4"><span class="ja" id="ja_ka"></span><span class="ja" id="yous_ka"></span></div>
+									<div class="col-4"><span class="ja" id="ja_hokkaido"></span><span class="ja" id="yous_hokkaido"></span></div>
+									<div class="col-4"><span class="ja" id="ja_aomori"></span><span class="ja" id="yous_aomori"></span></div>
+									<div class="col-4"><span class="ja" id="ja_iwate"></span><span class="ja" id="yous_iwate"></span></div>
+									<div class="col-4"><span class="ja" id="ja_akita"></span><span class="ja" id="yous_akita"></span></div>
+									<div class="col-4"><span class="ja" id="ja_fukushima"></span><span class="ja" id="yous_fukushima"></span></div>
+									<div class="col-4"><span class="ja" id="ja_miyagi"></span><span class="ja" id="yous_miyagi"></span></div>
+									<div class="col-4"><span class="ja" id="ja_yamagata"></span><span class="ja" id="yous_yamagata"></span></div>
+									<div class="col-4"><span class="ja" id="ja_ibaraki"></span><span class="ja" id="yous_ibaraki"></span></div>
+									<div class="col-4"><span class="ja" id="ja_tochigi"></span><span class="ja" id="yous_tochigi"></span></div>
+									<div class="col-4"><span class="ja" id="ja_gunma"></span><span class="ja" id="yous_gunma"></span></div>
+									<div class="col-4"><span class="ja" id="ja_saitama"></span><span class="ja" id="yous_saitama"></span></div>
+									<div class="col-4"><span class="ja" id="ja_tiba"></span><span class="ja" id="yous_tiba"></span></div>
+									<div class="col-4"><span class="ja" id="ja_tokyo"></span><span class="ja" id="yous_tokyo"></span></div>
+									<div class="col-4"><span class="ja" id="ja_kanagawa"></span><span class="ja" id="yous_kanagawa"></span></div>
+									<div class="col-4"><span class="ja" id="ja_niigata"></span><span class="ja" id="yous_niigata"></span></div>
+									<div class="col-4"><span class="ja" id="ja_toyama"></span><span class="ja" id="yous_toyama"></span></div>
+									<div class="col-4"><span class="ja" id="ja_ishikawa"></span><span class="ja" id="yous_ishikawa"></span></div>
+									<div class="col-4"><span class="ja" id="ja_fukui"></span><span class="ja" id="yous_fukui"></span></div>
+									<div class="col-4"><span class="ja" id="ja_yamanashi"></span><span class="ja" id="yous_yamanashi"></span></div>
+									<div class="col-4"><span class="ja" id="ja_nagano"></span><span class="ja" id="yous_nagano"></span></div>
+									<div class="col-4"><span class="ja" id="ja_gifu"></span><span class="ja" id="yous_gifu"></span></div>
+									<div class="col-4"><span class="ja" id="ja_shizuoka"></span><span class="ja" id="yous_shizuoka"></span></div>
+									<div class="col-4"><span class="ja" id="ja_aichi"></span><span class="ja" id="yous_aichi"></span></div>
+									<div class="col-4"><span class="ja" id="ja_mie"></span><span class="ja" id="yous_mie"></span></div>
+									<div class="col-4"><span class="ja" id="ja_shiga"></span><span class="ja" id="yous_shiga"></span></div>
+									<div class="col-4"><span class="ja" id="ja_kyoto"></span><span class="ja" id="yous_kyoto"></span></div>
+									<div class="col-4"><span class="ja" id="ja_osaka"></span><span class="ja" id="yous_osaka"></span></div>
+									<div class="col-4"><span class="ja" id="ja_hyogo"></span><span class="ja" id="yous_hyogo"></span></div>
+									<div class="col-4"><span class="ja" id="ja_nara"></span><span class="ja" id="yous_nara"></span></div>
+									<div class="col-4"><span class="ja" id="ja_wakayama"></span><span class="ja" id="yous_wakayama"></span></div>
+									<div class="col-4"><span class="ja" id="ja_tottori"></span><span class="ja" id="yous_tottori"></span></div>
+									<div class="col-4"><span class="ja" id="ja_shimane"></span><span class="ja" id="yous_shimane"></span></div>
+									<div class="col-4"><span class="ja" id="ja_okayama"></span><span class="ja" id="yous_okayama"></span></div>
+									<div class="col-4"><span class="ja" id="ja_hiroshima"></span><span class="ja" id="yous_hiroshima"></span></div>
+									<div class="col-4"><span class="ja" id="ja_yamaguchi"></span><span class="ja" id="yous_yamaguchi"></span></div>
+									<div class="col-4"><span class="ja" id="ja_tokushima"></span><span class="ja" id="yous_tokushima"></span></div>
+									<div class="col-4"><span class="ja" id="ja_kagawa"></span><span class="ja" id="yous_kagawa"></span></div>
+									<div class="col-4"><span class="ja" id="ja_ehime"></span><span class="ja" id="yous_ehime"></span></div>
+									<div class="col-4"><span class="ja" id="ja_kochi"></span><span class="ja" id="yous_kochi"></span></div>
+									<div class="col-4"><span class="ja" id="ja_fukuoka"></span><span class="ja" id="yous_fukuoka"></span></div>
+									<div class="col-4"><span class="ja" id="ja_saga"></span><span class="ja" id="yous_saga"></span></div>
+									<div class="col-4"><span class="ja" id="ja_nagasaki"></span><span class="ja" id="yous_nagasaki"></span></div>
+									<div class="col-4"><span class="ja" id="ja_kumamoto"></span><span class="ja" id="yous_kumamoto"></span></div>
+									<div class="col-4"><span class="ja" id="ja_oita"></span><span class="ja" id="yous_oita"></span></div>
+									<div class="col-4"><span class="ja" id="ja_miyazaki"></span><span class="ja" id="yous_miyazaki"></span></div>
+									<div class="col-4"><span class="ja" id="ja_kagoshima"></span><span class="ja" id="yous_kagoshima"></span></div>
+									<div class="col-4"><span class="ja" id="ja_okinawa"></span><span class="ja" id="yous_okinawa"></span></div>
+								</div>
+							</div>
+						</div>
+
+						<div id="beds">
+							<div class="box alt">
+								<div class="row gtr-50 gtr-uniform">
+									<div class="col-4"><span class="ja" id="2ja_ka"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_hokkaido"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_aomori"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_iwate"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_akita"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_fukushima"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_miyagi"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_yamagata"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_ibaraki"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_tochigi"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_gunma"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_saitama"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_tiba"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_tokyo"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_kanagawa"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_niigata"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_toyama"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_ishikawa"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_fukui"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_yamanashi"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_nagano"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_gifu"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_shizuoka"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_aichi"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_mie"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_shiga"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_kyoto"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_osaka"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_hyogo"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_nara"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_wakayama"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_tottori"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_shimane"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_okayama"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_hiroshima"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_yamaguchi"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_tokushima"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_kagawa"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_ehime"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_kochi"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_fukuoka"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_saga"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_nagasaki"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_kumamoto"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_oita"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_miyazaki"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_kagoshima"></span></div>
+									<div class="col-4"><span class="ja" id="2ja_okinawa"></span></div>
+								</div>
+							</div>
+						</div>
+						
+						<div id="density">
+							<div class="box alt">
+								<div class="row gtr-50 gtr-uniform">
+									<div class="col-4"><span class="ja" id="3ja_ka"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_hokkaido"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_aomori"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_iwate"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_akita"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_fukushima"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_miyagi"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_yamagata"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_ibaraki"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_tochigi"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_gunma"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_saitama"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_tiba"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_tokyo"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_kanagawa"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_niigata"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_toyama"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_ishikawa"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_fukui"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_yamanashi"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_nagano"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_gifu"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_shizuoka"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_aichi"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_mie"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_shiga"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_kyoto"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_osaka"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_hyogo"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_nara"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_wakayama"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_tottori"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_shimane"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_okayama"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_hiroshima"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_yamaguchi"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_tokushima"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_kagawa"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_ehime"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_kochi"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_fukuoka"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_saga"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_nagasaki"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_kumamoto"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_oita"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_miyazaki"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_kagoshima"></span></div>
+									<div class="col-4"><span class="ja" id="3ja_okinawa"></span></div>
+								</div>
+							</div>
+						</div>
+
+					</section>
+
+					<section id="tiiki"><span id ="5"></span>
+						<h2>地域分析</h2>
+
+							<div class="balloon1">
+								<div class="faceicon1">
+									<img src="images/boy.jpg">
+								</div>
+							<div class="chatting1">
+								<div class="says1">
+									<p>上記の国内感染者数は、県ごとに病床数や感染密度を比較してたけど、これを応用し<span id="important_moji">市町村ごとの地域分析</span>をしてみよう。</p>
+								</div>
+							</div>
+							</div>
+
+						<blockquote>
+						①陽性者の感染密度又は現患者の感染密度を選択します。<br>
+						②お住まいの都道府県を選択します。<br>
+						③お住まいの市町村の人口（単位：万人）を入力します。<br>
+						④計算するボタンを押します。
+						</blockquote>
+												
+							<div class="box alt">
+								<div class="row gtr-50 gtr-uniform">
+
+									<div class="col-4 col-12-small">
+										<input type="radio" id="demo-priority-low2" name="vari" checked>
+										<label for="demo-priority-low2">陽性者の感染密度</label>
+									</div>
+									<div class="col-4 col-12-small">
+										<input type="radio" id="demo-priority-normal2" name="vari">
+										<label for="demo-priority-normal2">現患者の感染密度</label>
+									</div>
+
+									<div class="col-12">
+										<select name="demo-category" id="demo-category">
+											<option value="">- 都道府県選択 -</option>
+											<option value="0">北海道</option>
+											<option value="1">青森県</option>
+											<option value="2">岩手県</option>
+											<option value="3">宮城県</option>
+											<option value="4">秋田県</option>
+											<option value="5">山形県</option>
+											<option value="6">福島県</option>
+											<option value="7">茨城県</option>
+											<option value="8">栃木県</option>
+											<option value="9">群馬県</option>
+											<option value="10">埼玉県</option>
+											<option value="11">千葉県</option>
+											<option value="12">東京都</option>
+											<option value="13">神奈川県</option>
+											<option value="14">新潟県</option>
+											<option value="15">富山県</option>
+											<option value="16">石川県</option>
+											<option value="17">福井県</option>
+											<option value="18">山梨県</option>
+											<option value="19">長野県</option>
+											<option value="20">岐阜県</option>
+											<option value="21">静岡県</option>
+											<option value="22">愛知県</option>
+											<option value="23">三重県</option>
+											<option value="24">滋賀県</option>
+											<option value="25">京都府</option>
+											<option value="26">大阪府</option>
+											<option value="27">兵庫県</option>
+											<option value="28">奈良県</option>
+											<option value="29">和歌山県</option>
+											<option value="30">鳥取県</option>
+											<option value="31">島根県</option>
+											<option value="32">岡山県</option>
+											<option value="33">広島県</option>
+											<option value="34">山口県</option>
+											<option value="35">徳島県</option>
+											<option value="36">香川県</option>
+											<option value="37">愛媛県</option>
+											<option value="38">高知県</option>
+											<option value="39">福岡県</option>
+											<option value="40">佐賀県</option>
+											<option value="41">長崎県</option>
+											<option value="42">熊本県</option>
+											<option value="43">大分県</option>
+											<option value="44">宮崎県</option>
+											<option value="45">鹿児島県</option>
+											<option value="46">沖縄県</option>
+										</select>
+									</div>
+									
+									<div class="col-6 col-12-xsmall">
+										市町村人口<br>
+										<input type="number" name="jinko" id ="jinko" class = "jinko" width="30px">万人
+									</div>
+									<div class="col-6 col-12-xsmall">
+										<ul class="actions">
+											<li><a href="javascript:void(0);" class="button primary" onclick="calculate();">計算する</a></li>
+										</ul>
+									</div>
+									<br>
+									<div class="col-6 col-12-xsmall">
+									平均感染者数：<span id = "answer"></span>人
+									</div>
+									<div class="col-6 col-12-xsmall">
+									</div>
+							</div>
+						</div>
+
+							<div class="balloon2">
+								<div class="faceicon2">
+									<img src="images/girl.jpg">
+								</div>
+							<div class="chatting2">
+								<div class="says2">
+									<p>これにより、感染密度に基づく、<span id="important_moji">平均感染者数（理論値）</span>が計算されるよ。実際の感染者数を自治体のウェブサイトから調べてみてね。</p>
+								</div>
+							</div>
+							</div>
+
+							<div class="balloon3">
+								<div class="faceicon3">
+									<img src="images/doctor.jpg">
+								</div>
+							<div class="chatting3">
+								<div class="says3">
+									<p>もし、実際の感染者数の方が多かった場合、県内で<span id="important_moji">その市町村は感染の広がりが速く、県の対策だけではなく、市町村独自の対策（より厳しいもの）が必要</span>ということになるのじゃ<br>
+						県というマクロな視点から、市町村というミクロな視点に<span id="important_moji">クローズアップする</span>ことができるんじゃな。</p>
+								</div>
+							</div>
+							</div>
+
+							<div class="balloon1">
+								<div class="faceicon1">
+									<img src="images/boy.jpg">
+								</div>
+							<div class="chatting1">
+								<div class="says1">
+									<p>この計算手法はさらに応用が可能だよ。
+									<br>自分の地域だけではなく隣接する市町村を調べて、感染の広がりが速かった場合、<span id="important_moji">自分の市町村にも広がってくるかもしれない</span>と、早めの対策を打てるよ。</p>
+								</div>
+							</div>
+							</div>
+
+							<div class="balloon3">
+								<div class="faceicon3">
+									<img src="images/doctor.jpg">
+								</div>
+							<div class="chatting3">
+								<div class="says3">
+									<p>陽性者の感染密度と現患者の感染密度の平均感染者数（理論値）を比べて大差ない場合、<span id="important_moji">退院の患者が少ない</span>ため、その地域は<span id="important_moji">医療機関への圧迫の懸念</span>があるってことだじゃな。</p>
+								</div>
+							</div>
+							</div>
+
+							<div class="balloon2">
+								<div class="faceicon2">
+									<img src="images/girl.jpg">
+								</div>
+							<div class="chatting2">
+								<div class="says2">
+									<p>潜在的な感染者もいるかもしれないため、正確ではない可能性もあるけど、一つの指標にはなるよね。</p>
+								</div>
+							</div>
+							</div>
+
+							<div class="balloon4">
+							<p>
+							さて、皆さんのお住まいの地域はどうなっているでしょうか？<br>
+							<span id="important_moji">目に見えない難敵を「見える化」</span>しましょう！仁志.
+							</p>
+							</div>
+					</section>
+
+					<section id="online"><span id ="9"></span>
+						<h2>オンライン診療医療機関</h2>
+						<p>厚生労働省の<a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryou/rinsyo/index_00014.html" target="_blank">オンライン診療リスト  <i class="fas fa-external-link-alt"></i></a></a>の加工データを用いて、マップ及びリストにしました。お住まいの地域の医療機関を調べてみてください。<br>
+						（出典：<a href="https://note.com/iryokaigodb/n/n271b7c32eb63" target="_blank">全国のオンライン診療実施医療機関リスト  <i class="fas fa-external-link-alt"></i></a></a>）
+						</p>
+<ul class="jp_map">
+      <li>
+        <a href="javascript:void(0);" onclick="online(1)">北海道</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(2)">青森</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(3)">岩手</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(4)">宮城</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(5)">秋田</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(6)">山形</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(7)">福島</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(8)">茨城</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(9)">栃木</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(10)">群馬</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(11)">埼玉</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(12)">千葉</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(13)">東京</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(14)">神奈川</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(15)">新潟</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(16)">富山</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(17)">石川</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(18)">福井</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(19)">山梨</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(20)">長野</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(21)">岐阜</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(22)">静岡</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(23)">愛知</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(24)">三重</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(25)">滋賀</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(26)">京都</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(27)">大阪</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(28)">兵庫</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(29)">奈良</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(30)">和歌山</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(31)">鳥取</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(32)">島根</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(33)">岡山</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(34)">広島</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(35)">山口</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(36)">徳島</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(37)">香川</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(38)">愛媛</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(39)">高知</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(40)">福岡</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(41)">佐賀</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(42)">長崎</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(43)">熊本</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(44)">大分</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(45)">宮崎</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(46)">鹿児島</a></li>
+      <li>
+        <a href="javascript:void(0);" onclick="online(47)">沖縄</a></li>
+    </ul>
+						
+						<div id ="onlinemap"></div>
+						
+						<div id ="onlinelist"></div>
+						
+					</section>
+
+					<section id="enterprise"><span id ="3"></span>
+						<h2>民間企業の取り組み</h2>
+						
+						<div class="balloon4">
+						<p>新型コロナウイルス対策に取り組んでいる民間企業の方々の取り組みを掲載しています。各企業様のウェブサイトの利用規約に準拠し、個別に掲載の許諾を頂きました。<br>
+						この場をお借りして、感謝申し上げます。ありがとうございました。仁志.</p>
+						</div>
+
+						<iframe src="enterprise.html" width="100%" height="450px"></iframe>
+					</section>
+
+					<section id="Symptoms"><span id ="6"></span>
+						<h2>感染者の初期症状</h2>
+						<blockquote>
+						WHOの報告書「<a href="https://www.who.int/docs/default-source/coronaviruse/who-china-joint-mission-on-covid-19-final-report.pdf">Report of the WHO-China Joint Mission on Coronavirus Disease 2019 (COVID-19)  <i class="fas fa-external-link-alt"></i></a>」では、世界各国の調査チーム及び中国当局の専門家が、2月20日までに中国で感染が確認された5万5,924名の症状について、分析しています。
+						</blockquote>
+						
+						<canvas id="bchart" height="300px"></canvas>
+						<br>
+						<blockquote>
+						症状が現れるのは、平均5～6日後（潜伏期間5～6日、潜伏範囲1～14日）とのことです。
+						</blockquote>
+						<canvas id="chart"></canvas>
+
+						<blockquote>
+						・軽症：肺炎症状のない又は肺炎患者<br>
+						・重症：呼吸困難、呼吸頻度≧30回/分、酸素飽和度≦93%、Pao2/Fio≦300、24～48時間内肺浸潤≧50%<br>
+						・重篤：呼吸不全、敗血症性ショック、多臓器不全/障害
+						</blockquote>
+
+						<h3 class="ti">全国クラスターマップ</h3>
+							<blockquote>
+							厚生労働省の<a href ="https://www.mhlw.go.jp/content/10900000/000618504.pdf" target="_blank">全国クラスターマップ  <i class="fas fa-external-link-alt"></i></a>をWEBにしました。
+							</blockquote>
+							<iframe src="clustermap/index.html" width="100%" height="500px"></iframe>
+
+					</section>
+
+					<section id="kanren"><span id ="7"></span>
+						<h2>関連情報</h2>
+							<h3 class="ti">参考画像／動画</h3>
+							<div class="box alt">
+								<div class="row gtr-50 gtr-uniform">
+									<div class="col-4"><a href="images/fulls/who2.jpg" data-lightbox="abc" data-title="隔離期間"><img src="images/fulls/who2.jpg" width="100%" alt="隔離期間"></a></div>
+									<div class="col-4"><a href="images/fulls/who3.jpg" data-lightbox="abc" data-title="2m"><img src="images/fulls/who3.jpg" width="100%" alt="2m"></a></div>
+									<div class="col-4"><span class="video-link demo-link" data-video-id="AZULaaJm_nI"><img src="images/fulls/8ratio.jpg" width="100%" alt="8割の接触を避ける意味、解説動画"></span></div>
+								</div>
+							</div>
+
+							<h3 class="ti">感染防止動画</h3>
+								<p>自衛隊中央病院の感染防止動画です。</p>
+							<div class="box alt">
+								<div class="row gtr-50 gtr-uniform">
+									<div class="col-4"><span class="video-link demo-link" data-video-id="H7eA-u7yLsk"><img src="images/fulls/jiei1.jpg" width="100%" alt="8割の接触を避ける意味、解説動画"></span></div>
+									<div class="col-4"><span class="video-link demo-link" data-video-id="R0zwUHlynH8"><img src="images/fulls/jiei2.jpg" width="100%" alt="8割の接触を避ける意味、解説動画"></span></div>
+									<div class="col-4"><span class="video-link demo-link" data-video-id="a5_NKl1Kygk"><img src="images/fulls/jiei3.jpg" width="100%" alt="8割の接触を避ける意味、解説動画"></span></div>
+									<div class="col-4"><span class="video-link demo-link" data-video-id="Jcjx9zBqahs"><img src="images/fulls/jiei4.jpg" width="100%" alt="8割の接触を避ける意味、解説動画"></span></div>
+								</div>
+							</div>
+
+							<hr>
+							<h3 class="ti">関連リンク</h3>
+							<div class="box alt">
+								<div class="row gtr-50 gtr-uniform">
+									<div class="col-4"><a href="https://www.covid19-yamanaka.com/" target="_blank"><span class="image fit"><img src="images/thumbs/yamanaka.png" alt="" />山中伸弥による新型コロナウイルス情報発信 <i class="fas fa-external-link-alt"></i></span></a></div>
+									<div class="col-4"><a href="https://www.stopcovid19.jp/" target="_blank"><span class="image fit"><img src="images/thumbs/covid-19j.png" alt="" />新型コロナウイルス対策ダッシュボード <i class="fas fa-external-link-alt"></i></span></a></div>
+									<div class="col-4"><a href="https://vdata.nikkei.com/newsgraphics/coronavirus-world-map/" target="_blank"><span class="image fit"><img src="images/thumbs/nikkei.png" alt="" />新型コロナウイルス感染　世界マップ（日本経済新聞） <i class="fas fa-external-link-alt"></i></span></a></div>
+									<div class="col-4"><a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000164708_00001.html" target="_blank"><span class="image fit"><img src="images/thumbs/mhlw.png" alt="" />厚生労働省 新型コロナウイルス感染症について <i class="fas fa-external-link-alt"></i></span></a></div>
+									<div class="col-4"><a href="https://stopcovid19.metro.tokyo.lg.jp/" target="_blank"><span class="image fit"><img src="images/thumbs/tokyo.png" alt="" />東京都 新型コロナウイルス感染症対策サイト <i class="fas fa-external-link-alt"></i></span></a></div>
+									<div class="col-4"><a href="https://cio.go.jp/hosp_monitoring_c19" target="_blank"><span class="image fit"><img src="images/thumbs/ciomedical.png" alt="" />医療提供体制の状況 <i class="fas fa-external-link-alt"></i></span></a></div>
+									<div class="col-4"><a href="https://corona.go.jp/" target="_blank"><span class="image fit"><img src="images/thumbs/naikaku.png" alt="" />新型コロナウイルス感染症対策 内閣官房 <i class="fas fa-external-link-alt"></i></span></a></div>
+									<div class="col-4"><a href="https://vscovid19.code4japan.org/" target="_blank"><span class="image fit"><img src="images/thumbs/vscovid19.png" alt="" />#民間支援情報ナビ <i class="fas fa-external-link-alt"></i></span></a></div>
+									<div class="col-4"><a href="https://zaikosokuho.com/" target="_blank"><span class="image fit"><img src="images/thumbs/zaikosokuho.png" alt="" />在庫速報.com <i class="fas fa-external-link-alt"></i></span></a></div>
+								</div>
+								
+							</div>
+							<hr>
+							<div class="row">
+							<div class="col-6 col-12-xsmall">
+							<h3 class="ti">参考文献</h3>
+									<ul>
+										<li><a href="https://linkevery2s.github.io/bsinsight/index.html" target="_blank">防災INSIGHT <i class="fas fa-external-link-alt"></i></a></li>
+										<li><a href="https://www.mhlw.go.jp/stf/houdou/index.html" target="_blank">厚生労働省 報道発表資料 <i class="fas fa-external-link-alt"></i></a></li>
+										<li><a href="https://fukuno.jig.jp/2788" target="_blank">新型コロナウイルス陽性患者数PDFデータをJSON-API化 <i class="fas fa-external-link-alt"></i></a></li>
+										<li><a href="https://www.e-stat.go.jp/" target="_blank">e-Stat 政府統計の総合窓口 <i class="fas fa-external-link-alt"></i></a></li>
+										<li><a href="https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou15/02-02.html" target="_blank">感染症指定医療機関の指定状況 <i class="fas fa-external-link-alt"></i></a></li>
+										<li><a href="https://densho810.com/free/" target="_blank">ブラックジャックによろしく <i class="fas fa-external-link-alt"></i></a></li>
+										<li><a href="https://www.photo-ac.com/" target="_blank">写真AC <i class="fas fa-external-link-alt"></i></a></li>
+										<li><a href="https://www.chartjs.org/" target="_blank">Chart.js <i class="fas fa-external-link-alt"></i></a></li>
+									</ul>
+							</div>
+								<div class="col-6 col-12-xsmall">
+									<h3 class="ti">ＱＲコード</h3>
+									本ＷＥＢのＱＲコードです。<br>
+									<img src="images/qr.png">
+								</div>
+							</div>
+					</section>
+
+※個人で開発したWEBです。正確な情報は厚生労働省のウェブサイト等をご参照ください。<br>
+※ライセンスは、<a href="https://creativecommons.org/licenses/by/3.0/deed.ja" target="_blank">CC BY 3.0</a>で公開しています。<br>
+※リンク先のウェブサイトについては、リンク先の著作権・知的所有権に帰属しますので、ご注意ください。
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="addthis_inline_share_toolbox"></div>
+					<script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e6a1ea37a768e74"></script>
+					<ul class="copyright">
+						<li>&copy; 仁志</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer>
+		
+		<div id="page_top"><a href="#"></a></div>
+		
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+			<script src="assets/js/videoLightning.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+			<script src="assets/js/graph.js"></script>
+			<script src="assets/js/modal.js"></script>
+			<script>
+			
+				$(function() {
+    				var topBtn = $('#page_top');
+    				topBtn.hide();
+
+    				$(window).scroll(function () {
+
+        			if ($(this).scrollTop() > 100) {
+            			topBtn.fadeIn();
+
+        			} else {
+            			topBtn.fadeOut();
+        			}
+    			});
+
+					topBtn.click(function () {
+						$('body,html').animate({scrollTop: 0}, 1000);
+						return false;
+    				});
+				});
+			
+			</script>
+			<script>
+    			$(function() {
+        			$(".video-link").jqueryVideoLightning({
+            			autoplay: 1,
+            			color: "white"
+        			});
+    			});
+			</script>
+
+	</body>
+</html>

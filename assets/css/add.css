@@ -1,0 +1,31 @@
+.balloon1 {width: 100%;margin: 1.5em 0;overflow: hidden;}
+.balloon1 .faceicon1 {float: left;margin-right: -90px;width: 80px;}
+.balloon1 .faceicon1 img{width: 100%;height: auto;border: solid 3px #d7ebfe;border-radius: 50%;}
+.balloon1 .chatting1 {width: 100%;}
+.says1 {display: inline-block;position: relative; margin: 5px 0 0 105px;padding: 17px 13px;border-radius: 12px;background: rgba(215, 235, 254,0.6);}
+.says1:after {content: "";display: inline-block;position: absolute;top: 18px; left: -24px;border: 12px solid transparent;border-right: 12px solid rgba(215, 235, 254,0.6);}
+.says1 p {margin: 0;padding: 0;}
+
+.balloon2 {width: 100%;margin: 1.5em 0;overflow: hidden;}
+.balloon2 .faceicon2 {float: right;margin-left: -90px;width: 80px;}
+.balloon2 .faceicon2 img{width: 100%;height: auto;border: solid 3px #FFCCFF;border-radius: 50%;}
+.balloon2 .chatting2 {width: 100%;}
+.says2 {display: inline-block;position: relative; margin: 5px 105px 0 0;padding: 17px 13px;border-radius: 12px;background: rgba(255, 204, 255,0.6);}
+.says2:after {content: "";display: inline-block;position: absolute;top: 18px; right: -24px;border: 12px solid transparent;border-left: 12px solid rgba(255, 204, 255,0.6);}
+.says2 p {margin: 0;padding: 0;}
+
+.balloon3 {width: 100%;margin: 1.5em 0;overflow: hidden;}
+.balloon3 .faceicon3 {float: left;margin-right: -90px;width: 80px;}
+.balloon3 .faceicon3 img{width: 100%;height: auto;border: solid 3px #e6e6fa;border-radius: 50%;}
+.balloon3 .chatting3 {width: 100%;}
+.says3 {display: inline-block;position: relative; margin: 5px 0 0 105px;padding: 17px 13px;border-radius: 12px;background: rgba(230, 230, 250,0.6);}
+.says3:after {content: "";display: inline-block;position: absolute;top: 18px; left: -24px;border: 12px solid transparent;border-right: 12px solid rgba(230, 230, 250,0.6);}
+.says3 p {margin: 0;padding: 0;}
+
+#important_moji{color: #FF0000;}
+
+.balloon4 {position: relative;margin: 2em 0 2em 40px;padding: 15px;background: rgba(255, 240, 198,0.8);border-radius: 30px;}
+.balloon4:before {  content: "";position: absolute;left: -38px;width: 13px;height: 12px;bottom: 0;background: rgba(255, 240, 198,0.8);border-radius: 50%;}
+.balloon4:after {content: "";position: absolute;left: -24px;width: 20px;height: 18px;bottom: 3px;background: rgba(255, 240, 198,0.8);border-radius: 50%;}
+.balloon4 p {margin: 0; padding: 0;}
+
