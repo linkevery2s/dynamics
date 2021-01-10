@@ -1,58 +1,58 @@
 var map;var zoom;var url;var todou; var ido; var keido;
-var bed = new Array(47); var hos_bed = new Array(47); var yado_bed = new Array(47); var syoki = new Array(47); var x = new Array(47); var y = new Array(47); var mitudo = new Array(47); var mitudo_total = new Array(47);  var density = new Array(47);
+var bed = new Array(47); var hos_bed = new Array(47); var yado_bed = new Array(47);var jusho_bed = new Array(47); var syoki = new Array(47); var x = new Array(47); var y = new Array(47); var mitudo = new Array(47); var mitudo_total = new Array(47);  var density = new Array(47);
 var multi = new Array(47); var lastupdate;var multi_n = new Array(47); online_pref = new Array(47);
 var yousei = new Array(47); var taiin = new Array(47); var ncurrent = new Array(47); death = new Array(47);
-var soku_yousei = new Array(47); var soku_taiin = new Array(47); var soku_ncurrent = new Array(47); soku_death = new Array(47); var soku_update = new Array(47); var soku_name = new Array(47); var ji_update; var kensa = new Array(47); var h = new Array(47);
-var j; var sokuho; var zentai_youso; var heavy = new Array(47);
+var soku_yousei = new Array(47); var soku_taiin = new Array(47); var soku_ncurrent = new Array(47); soku_death = new Array(47); var soku_update = new Array(47); var soku_name = new Array(47); var kensa = new Array(47); var h = new Array(47);
+var j; var sokuho; var zentai_youso; var heavy = new Array(47); var jusyo_hi = new Array(47);
 
 /* 病床数 */
-/* 北海道 */ hos_bed[0] = 1811;yado_bed[0]=1170;
-/* 青森県 */ hos_bed[1] = 201;yado_bed[1]=260;
-/* 岩手県 */ hos_bed[2] = 374;yado_bed[2]=381;
-/* 宮城県 */ hos_bed[3] = 345;yado_bed[3]=300;
-/* 秋田県 */ hos_bed[4] = 222;yado_bed[4]=58;
-/* 山形県 */ hos_bed[5] = 216;yado_bed[5]=188;
-/* 福島県 */ hos_bed[6] = 469;yado_bed[6]=160;
-/* 茨城県 */ hos_bed[7] = 546;yado_bed[7]=324;
-/* 栃木県 */ hos_bed[8] = 313;yado_bed[8]=284;
-/* 群馬県 */ hos_bed[9] = 316;yado_bed[9]=1300;
-/* 埼玉県 */ hos_bed[10] = 1206;yado_bed[10]=1225;
-/* 千葉県 */ hos_bed[11] = 1147;yado_bed[11]=710;
-/* 東京都 */ hos_bed[12] = 4000;yado_bed[12]=1910;
-/* 神奈川 */ hos_bed[13] = 1939;yado_bed[13]=861;
-/* 新潟県 */ hos_bed[14] = 456;yado_bed[14]=176;
-/* 富山県 */ hos_bed[15] = 500;yado_bed[15]=125;
-/* 石川県 */ hos_bed[16] = 258;yado_bed[16]=340;
-/* 福井県 */ hos_bed[17] = 215;yado_bed[17]=75;
-/* 山梨県 */ hos_bed[18] = 285;yado_bed[18]=100;
-/* 長野県 */ hos_bed[19] = 350;yado_bed[19]=250;
-/* 岐阜県 */ hos_bed[20] = 625;yado_bed[20]=466;
-/* 静岡県 */ hos_bed[21] = 384;yado_bed[21]=379;
-/* 愛知県 */ hos_bed[22] = 860;yado_bed[22]=1300;
-/* 三重県 */ hos_bed[23] = 349;yado_bed[23]=100;
-/* 滋賀県 */ hos_bed[24] = 429;yado_bed[24]=260;
-/* 京都府 */ hos_bed[25] = 569;yado_bed[25]=338;
-/* 大阪府 */ hos_bed[26] = 1391;yado_bed[26]=1517;
-/* 兵庫県 */ hos_bed[27] = 671;yado_bed[27]=698;
-/* 奈良県 */ hos_bed[28] = 467;yado_bed[28]=108;
-/* 和歌山 */ hos_bed[29] = 400;yado_bed[29]=137;
-/* 鳥取県 */ hos_bed[30] = 313;yado_bed[30]=340;
-/* 島根県 */ hos_bed[31] = 253;yado_bed[31]=98;
-/* 岡山県 */ hos_bed[32] = 281;yado_bed[32]=207;
-/* 広島県 */ hos_bed[33] = 553;yado_bed[33]=709;
-/* 山口県 */ hos_bed[34] = 423;yado_bed[34]=834;
-/* 徳島県 */ hos_bed[35] = 200;yado_bed[35]=150;
-/* 香川県 */ hos_bed[36] = 196;yado_bed[36]=101;
-/* 愛媛県 */ hos_bed[37] = 229;yado_bed[37]=117;
-/* 高知県 */ hos_bed[38] = 200;yado_bed[38]=361;
-/* 福岡県 */ hos_bed[39] = 551;yado_bed[39]=1057;
-/* 佐賀県 */ hos_bed[40] = 274;yado_bed[40]=253;
-/* 長崎県 */ hos_bed[41] = 395;yado_bed[41]=352;
-/* 熊本県 */ hos_bed[42] = 400;yado_bed[42]=1430;
-/* 大分県 */ hos_bed[43] = 330;yado_bed[43]=700;
-/* 宮崎県 */ hos_bed[44] = 246;yado_bed[44]=250;
-/* 鹿児島 */ hos_bed[45] = 342;yado_bed[45]=370;
-/* 沖縄県 */ hos_bed[46] = 434;yado_bed[46]=370;
+/* 北海道 */ hos_bed[0] = 1811;jusho_bed[0]=182;yado_bed[0]=1835;
+/* 青森県 */ hos_bed[1] = 210;jusho_bed[1]=31;yado_bed[1]=290;
+/* 岩手県 */ hos_bed[2] = 374;jusho_bed[2]=59;yado_bed[2]=381;
+/* 宮城県 */ hos_bed[3] = 345;jusho_bed[3]=43;yado_bed[3]=300;
+/* 秋田県 */ hos_bed[4] = 222;jusho_bed[4]=24;yado_bed[4]=58;
+/* 山形県 */ hos_bed[5] = 216;jusho_bed[5]=26;yado_bed[5]=108;
+/* 福島県 */ hos_bed[6] = 469;jusho_bed[6]=42;yado_bed[6]=160;
+/* 茨城県 */ hos_bed[7] = 545;jusho_bed[7]=70;yado_bed[7]=324;
+/* 栃木県 */ hos_bed[8] = 317;jusho_bed[8]=46;yado_bed[8]=284;
+/* 群馬県 */ hos_bed[9] = 335;jusho_bed[9]=71;yado_bed[9]=1300;
+/* 埼玉県 */ hos_bed[10] = 1267;jusho_bed[10]=131;yado_bed[10]=1359;
+/* 千葉県 */ hos_bed[11] = 1144;jusho_bed[11]=94;yado_bed[11]=815;
+/* 東京都 */ hos_bed[12] = 4000;jusho_bed[12]=500;yado_bed[12]=2360;
+/* 神奈川 */ hos_bed[13] = 1939;jusho_bed[13]=200;yado_bed[13]=1247;
+/* 新潟県 */ hos_bed[14] = 456;jusho_bed[14]=112;yado_bed[14]=176;
+/* 富山県 */ hos_bed[15] = 500;jusho_bed[15]=36;yado_bed[15]=377;
+/* 石川県 */ hos_bed[16] = 258;jusho_bed[16]=35;yado_bed[16]=340;
+/* 福井県 */ hos_bed[17] = 215;jusho_bed[17]=24;yado_bed[17]=75;
+/* 山梨県 */ hos_bed[18] = 285;jusho_bed[18]=24;yado_bed[18]=139;
+/* 長野県 */ hos_bed[19] = 350;jusho_bed[19]=48;yado_bed[19]=250;
+/* 岐阜県 */ hos_bed[20] = 625;jusho_bed[20]=51;yado_bed[20]=466;
+/* 静岡県 */ hos_bed[21] = 442;jusho_bed[21]=38;yado_bed[21]=592;
+/* 愛知県 */ hos_bed[22] = 1102;jusho_bed[22]=103;yado_bed[22]=1300;
+/* 三重県 */ hos_bed[23] = 357;jusho_bed[23]=53;yado_bed[23]=100;
+/* 滋賀県 */ hos_bed[24] = 274;jusho_bed[24]=44;yado_bed[24]=260;
+/* 京都府 */ hos_bed[25] = 720;jusho_bed[25]=86;yado_bed[25]=338;
+/* 大阪府 */ hos_bed[26] = 1572;jusho_bed[26]=397;yado_bed[26]=2019;
+/* 兵庫県 */ hos_bed[27] = 756;jusho_bed[27]=116;yado_bed[27]=988;
+/* 奈良県 */ hos_bed[28] = 370;jusho_bed[28]=28;yado_bed[28]=250;
+/* 和歌山 */ hos_bed[29] = 400;jusho_bed[29]=40;yado_bed[29]=137;
+/* 鳥取県 */ hos_bed[30] = 313;jusho_bed[30]=47;yado_bed[30]=340;
+/* 島根県 */ hos_bed[31] = 253;jusho_bed[31]=25;yado_bed[31]=98;
+/* 岡山県 */ hos_bed[32] = 401;jusho_bed[32]=37;yado_bed[32]=207;
+/* 広島県 */ hos_bed[33] = 453;jusho_bed[33]=33;yado_bed[33]=819;
+/* 山口県 */ hos_bed[34] = 423;jusho_bed[34]=137;yado_bed[34]=834;
+/* 徳島県 */ hos_bed[35] = 200;jusho_bed[35]=25;yado_bed[35]=180;
+/* 香川県 */ hos_bed[36] = 199;jusho_bed[36]=26;yado_bed[36]=101;
+/* 愛媛県 */ hos_bed[37] = 229;jusho_bed[37]=33;yado_bed[37]=192;
+/* 高知県 */ hos_bed[38] = 200;jusho_bed[38]=58;yado_bed[38]=203;
+/* 福岡県 */ hos_bed[39] = 600;jusho_bed[39]=110;yado_bed[39]=1057;
+/* 佐賀県 */ hos_bed[40] = 273;jusho_bed[40]=46;yado_bed[40]=253;
+/* 長崎県 */ hos_bed[41] = 395;jusho_bed[41]=27;yado_bed[41]=367;
+/* 熊本県 */ hos_bed[42] = 420;jusho_bed[42]=59;yado_bed[42]=1430;
+/* 大分県 */ hos_bed[43] = 355;jusho_bed[43]=41;yado_bed[43]=700;
+/* 宮崎県 */ hos_bed[44] = 246;jusho_bed[44]=33;yado_bed[44]=250;
+/* 鹿児島 */ hos_bed[45] = 345;jusho_bed[45]=38;yado_bed[45]=370;
+/* 沖縄県 */ hos_bed[46] = 469;jusho_bed[46]=53;yado_bed[46]=370;
 
 for ( var k = 0; k < 47; k++){
 
@@ -61,28 +61,6 @@ for ( var k = 0; k < 47; k++){
 }
 
 function get_kansen(){
-
-	/* 速報 */
-	var xhr2 = new XMLHttpRequest();
-	var url2 = "https://www.stopcovid19.jp/data/covid19japan-fast.json";
-	xhr2.open('GET', url2);
-	xhr2.send(null);
-	xhr2.onreadystatechange = function(){
-		if (xhr2.readyState === 4 && xhr2.status === 200){
-			var json_data2 = eval( '('+xhr2.responseText +')');
-
-		}else{}
-			/* 要素数カウント */
-			sokuho = json_data2.length;
-			
-			for ( j = 0;  j < sokuho;  j++){
-				soku_name[j] = json_data2[j].name;
-				soku_yousei[j] = json_data2[j].npatients;
-				soku_taiin[j] = json_data2[j].nexits;
-				soku_ncurrent[j] = json_data2[j].ncurrentpatients;
-				soku_death[j] = json_data2[j].ndeaths;
-				soku_update[j] = json_data2[j].lastUpdate.split("-");
-			}
 
 	/* 厚労省データ */
 	var xhr = new XMLHttpRequest();
@@ -121,25 +99,25 @@ function get_kansen(){
 			syoki[25] = document.getElementById('ja_kyoto');
 			syoki[26] = document.getElementById('ja_osaka');
 			syoki[27] = document.getElementById('ja_hyogo');
-			syoki[28] = document.getElementById("ja_nara");
-			syoki[29] = document.getElementById("ja_wakayama");
-			syoki[30] = document.getElementById("ja_tottori");
-			syoki[31] = document.getElementById("ja_shimane");
-			syoki[32] = document.getElementById("ja_okayama");
-			syoki[33] = document.getElementById("ja_hiroshima");
-			syoki[34] = document.getElementById("ja_yamaguchi");
-			syoki[35] = document.getElementById("ja_tokushima");
-			syoki[36] = document.getElementById("ja_kagawa");
-			syoki[37] = document.getElementById("ja_ehime");
-			syoki[38] = document.getElementById("ja_kochi");
-			syoki[39] = document.getElementById("ja_fukuoka");
-			syoki[40] = document.getElementById("ja_saga");
-			syoki[41] = document.getElementById("ja_nagasaki");
-			syoki[42] = document.getElementById("ja_kumamoto");
-			syoki[43] = document.getElementById("ja_oita");
-			syoki[44] = document.getElementById("ja_miyazaki");
-			syoki[45] = document.getElementById("ja_kagoshima");
-			syoki[46] = document.getElementById("ja_okinawa");
+			syoki[28] = document.getElementById('ja_nara');
+			syoki[29] = document.getElementById('ja_wakayama');
+			syoki[30] = document.getElementById('ja_tottori');
+			syoki[31] = document.getElementById('ja_shimane');
+			syoki[32] = document.getElementById('ja_okayama');
+			syoki[33] = document.getElementById('ja_hiroshima');
+			syoki[34] = document.getElementById('ja_yamaguchi');
+			syoki[35] = document.getElementById('ja_tokushima');
+			syoki[36] = document.getElementById('ja_kagawa');
+			syoki[37] = document.getElementById('ja_ehime');
+			syoki[38] = document.getElementById('ja_kochi');
+			syoki[39] = document.getElementById('ja_fukuoka');
+			syoki[40] = document.getElementById('ja_saga');
+			syoki[41] = document.getElementById('ja_nagasaki');
+			syoki[42] = document.getElementById('ja_kumamoto');
+			syoki[43] = document.getElementById('ja_oita');
+			syoki[44] = document.getElementById('ja_miyazaki');
+			syoki[45] = document.getElementById('ja_kagoshima');
+			syoki[46] = document.getElementById('ja_okinawa');
 
 			/* 厚労省データ格納 */
 			for (var i = 0;  i < 47;  i++){
@@ -151,191 +129,6 @@ function get_kansen(){
 				death[i] = yousei[i] - taiin[i] - ncurrent[i];
 			}
 
-			/* 速報上書き */
-			for ( j = 0 ; j < sokuho ; j++){
-			/* 北海道 */
-			if( soku_name[j] == "Hokkaido" ){
-			yousei[0] = soku_yousei[j];
-			taiin[0] = soku_taiin[j];
-			ncurrent[0] = soku_ncurrent[j];
-			death[0] = soku_death[j];
-			ji_update = "北海道：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 宮城県 */
-			else if( soku_name[j] == "Miyagi" ){
-			yousei[3] = soku_yousei[j];
-			taiin[3] = soku_taiin[j];
-			ncurrent[3] = soku_ncurrent[j];
-			death[3] = soku_death[j];
-			ji_update += "<br>宮城県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			} 
-
-			/* 福島県 */
-			else if( soku_name[j] == "Fukushima" ){
-			yousei[6] = soku_yousei[j];
-			taiin[6] = soku_taiin[j];
-			ncurrent[6] = soku_ncurrent[j];
-			death[6] = soku_death[j];
-			ji_update += "<br>福島県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			} 
-
-			/* 群馬県 */
-			else if( soku_name[j] == "Gunma" ){
-			yousei[9] = soku_yousei[j];
-			taiin[9] = soku_taiin[j];
-			ncurrent[9] = soku_ncurrent[j];
-			death[9] = soku_death[j];
-			ji_update += "<br>群馬県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2]; 
-			}
-			
-			/* 埼玉県 */
-			else if( soku_name[j] == "Saitama" ){
-			yousei[10] = soku_yousei[j];
-			taiin[10] = soku_taiin[j];
-			ncurrent[10] = soku_ncurrent[j];
-			death[10] = soku_death[j];
-			ji_update += "<br>埼玉県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-
-			/* 千葉県 */
-			else if( soku_name[j] == "Chiba" ){
-			yousei[11] = soku_yousei[j];
-			taiin[11] = soku_taiin[j];
-			ncurrent[11] = soku_ncurrent[j];
-			death[11] = soku_death[j];
-			ji_update += "<br>千葉県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-
-			/* 東京都 */
-			else if( soku_name[j] == "Tokyo" ){
-			yousei[12] = soku_yousei[j];
-			taiin[12] = soku_taiin[j];
-			ncurrent[12] = soku_ncurrent[j];
-			death[12] = soku_death[j];
-			ji_update += "<br>東京都：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 富山県 */
-			else if( soku_name[j] == "Toyama" ){
-			yousei[15] = soku_yousei[j];
-			taiin[15] = soku_taiin[j];
-			ncurrent[15] = soku_ncurrent[j];
-			death[15] = soku_death[j];
-			ji_update += "<br>富山県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 福井県 */
-			else if( soku_name[j] == "Fukui" ){
-			yousei[17] = soku_yousei[j];
-			taiin[17] = soku_taiin[j];
-			ncurrent[17] = soku_ncurrent[j];
-			death[17] = soku_death[j];
-			ji_update += "<br>福井県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 長野県 */
-			else if( soku_name[j] == "Nagano" ){
-			yousei[19] = soku_yousei[j];
-			taiin[19] = soku_taiin[j];
-			ncurrent[19] = soku_ncurrent[j];
-			death[19] = soku_death[j];
-			ji_update += "<br>長野県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 岐阜県 */
-			else if( soku_name[j] == "Gifu" ){
-			yousei[20] = soku_yousei[j];
-			taiin[20] = soku_taiin[j];
-			ncurrent[20] = soku_ncurrent[j];
-			death[20] = soku_death[j];
-			ji_update += "<br>岐阜県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 静岡県 */
-			else if( soku_name[j] == "Shizuoka" ){
-			yousei[21] = soku_yousei[j];
-			taiin[21] = soku_taiin[j];
-			ncurrent[21] = soku_ncurrent[j];
-			death[21] = soku_death[j];
-			ji_update += "<br>静岡県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 大阪府 */
-			else if( soku_name[j] == "Osaka" ){
-			yousei[26] = soku_yousei[j];
-			taiin[26] = soku_taiin[j];
-			ncurrent[26] = soku_ncurrent[j];
-			death[26] = soku_death[j];
-			ji_update += "<br>大阪府：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 兵庫県 */
-			else if( soku_name[j] == "Hyogo" ){
-			yousei[27] = soku_yousei[j];
-			taiin[27] = soku_taiin[j];
-			ncurrent[27] = soku_ncurrent[j];
-			death[27] = soku_death[j];
-			ji_update += "<br>兵庫県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 奈良県 */
-			else if( soku_name[j] == "Nara" ){
-			yousei[28] = soku_yousei[j];
-			taiin[28] = soku_taiin[j];
-			death[28] = soku_death[j];
-			ncurrent[28] = soku_yousei[j] - soku_taiin[j] - soku_death[j]; /* 宿泊療養者がいるため、数合わせ */
-			ji_update += "<br>奈良県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 和歌山県 */
-			else if( soku_name[j] == "Wakayama" ){
-			yousei[29] = soku_yousei[j];
-			taiin[29] = soku_taiin[j];
-			ncurrent[29] = soku_ncurrent[j];
-			death[29] = soku_death[j];
-			ji_update += "<br>和歌山県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 山口県 */
-			else if( soku_name[j] == "Yamaguchi" ){
-			yousei[34] = soku_yousei[j];
-			taiin[34] = soku_taiin[j];
-			ncurrent[34] = soku_ncurrent[j];
-			death[34] = soku_death[j];
-			ji_update += "<br>山口県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-
-			/* 愛媛県 */
-			else if( soku_name[j] == "Ehime" ){
-			yousei[37] = soku_yousei[j];
-			taiin[37] = soku_taiin[j];
-			ncurrent[37] = soku_ncurrent[j];
-			death[37] = soku_death[j];
-			ji_update += "<br>愛媛県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-
-			/* 福岡県 */
-			else if( soku_name[j] == "Fukuoka" ){
-			yousei[39] = soku_yousei[j];
-			taiin[39] = soku_taiin[j];
-			ncurrent[39] = soku_ncurrent[j];
-			death[39] = soku_death[j];
-			ji_update += "<br>福岡県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			
-			/* 熊本県 */
-			else if( soku_name[j] == "Kumamoto" ){
-			yousei[42] = soku_yousei[j];
-			taiin[42] = soku_taiin[j];
-			ncurrent[42] = soku_ncurrent[j];
-			death[42] = soku_death[j];
-			ji_update += "<br>熊本県：" + soku_update[j][0] +"."+soku_update[j][1]+"."+soku_update[j][2];
-			}
-			else{}
-			
-			}/*j末端*/
 			
 			/* divに掲載 */
 			for (var i = 0;  i < 47;  i++){
@@ -392,32 +185,32 @@ function get_kansen(){
 			x[25] = document.getElementById('2ja_kyoto');
 			x[26] = document.getElementById('2ja_osaka');
 			x[27] = document.getElementById('2ja_hyogo');
-			x[28] = document.getElementById("2ja_nara");
-			x[29] = document.getElementById("2ja_wakayama");
-			x[30] = document.getElementById("2ja_tottori");
-			x[31] = document.getElementById("2ja_shimane");
-			x[32] = document.getElementById("2ja_okayama");
-			x[33] = document.getElementById("2ja_hiroshima");
-			x[34] = document.getElementById("2ja_yamaguchi");
-			x[35] = document.getElementById("2ja_tokushima");
-			x[36] = document.getElementById("2ja_kagawa");
-			x[37] = document.getElementById("2ja_ehime");
-			x[38] = document.getElementById("2ja_kochi");
-			x[39] = document.getElementById("2ja_fukuoka");
-			x[40] = document.getElementById("2ja_saga");
-			x[41] = document.getElementById("2ja_nagasaki");
-			x[42] = document.getElementById("2ja_kumamoto");
-			x[43] = document.getElementById("2ja_oita");
-			x[44] = document.getElementById("2ja_miyazaki");
-			x[45] = document.getElementById("2ja_kagoshima");
-			x[46] = document.getElementById("2ja_okinawa");
+			x[28] = document.getElementById('2ja_nara');
+			x[29] = document.getElementById('2ja_wakayama');
+			x[30] = document.getElementById('2ja_tottori');
+			x[31] = document.getElementById('2ja_shimane');
+			x[32] = document.getElementById('2ja_okayama');
+			x[33] = document.getElementById('2ja_hiroshima');
+			x[34] = document.getElementById('2ja_yamaguchi');
+			x[35] = document.getElementById('2ja_tokushima');
+			x[36] = document.getElementById('2ja_kagawa');
+			x[37] = document.getElementById('2ja_ehime');
+			x[38] = document.getElementById('2ja_kochi');
+			x[39] = document.getElementById('2ja_fukuoka');
+			x[40] = document.getElementById('2ja_saga');
+			x[41] = document.getElementById('2ja_nagasaki');
+			x[42] = document.getElementById('2ja_kumamoto');
+			x[43] = document.getElementById('2ja_oita');
+			x[44] = document.getElementById('2ja_miyazaki');
+			x[45] = document.getElementById('2ja_kagoshima');
+			x[46] = document.getElementById('2ja_okinawa');
 			
 			/* 全国を非表示 */
 			document.getElementById('2ja_ka').style.backgroundColor = '#FFFFFF';
 
 			/* divに掲載 */
 			for (var i = 0;  i < 47;  i++){
-			x[i].innerHTML = json_data.area[i].name_jp +"<br><center>現患者数／病床数<br>" + ncurrent[i] + "／" + bed[i] + "</center>重症者数：" + heavy[i] +  "<br>医療病床：" + hos_bed[i] + "<br>宿泊施設：" + yado_bed[i];
+			x[i].innerHTML = json_data.area[i].name_jp +"<br><center>現患者数／病床数<br>" + ncurrent[i] + "／" + bed[i] +  "</center>医療病床：" + hos_bed[i] + "<br>宿泊施設：" + yado_bed[i];
 			}
 
 			/* 色分け判定 */
@@ -438,6 +231,82 @@ function get_kansen(){
 				else{
 					x[i].style.backgroundColor = '#CCFF00';
 					x[i].style.color = "#000000";
+				}
+			}
+
+			/* 重傷者数 */
+			jusyo_hi[0] = document.getElementById('jusyo_hokkaido');
+			jusyo_hi[1] = document.getElementById('jusyo_aomori');
+			jusyo_hi[2] = document.getElementById('jusyo_iwate');
+			jusyo_hi[3] = document.getElementById('jusyo_miyagi');
+			jusyo_hi[4] = document.getElementById('jusyo_akita');
+			jusyo_hi[5] = document.getElementById('jusyo_yamagata');
+			jusyo_hi[6] = document.getElementById('jusyo_fukushima');
+			jusyo_hi[7] = document.getElementById('jusyo_ibaraki');
+			jusyo_hi[8] = document.getElementById('jusyo_tochigi');
+			jusyo_hi[9] = document.getElementById('jusyo_gunma');
+			jusyo_hi[10] = document.getElementById('jusyo_saitama');
+			jusyo_hi[11] = document.getElementById('jusyo_tiba');
+			jusyo_hi[12] = document.getElementById('jusyo_tokyo');
+			jusyo_hi[13] = document.getElementById('jusyo_kanagawa');
+			jusyo_hi[14] = document.getElementById('jusyo_niigata');
+			jusyo_hi[15] = document.getElementById('jusyo_toyama');
+			jusyo_hi[16] = document.getElementById('jusyo_ishikawa');
+			jusyo_hi[17] = document.getElementById('jusyo_fukui');
+			jusyo_hi[18] = document.getElementById('jusyo_yamanashi');
+			jusyo_hi[19] = document.getElementById('jusyo_nagano');
+			jusyo_hi[20] = document.getElementById('jusyo_gifu');
+			jusyo_hi[21] = document.getElementById('jusyo_shizuoka');
+			jusyo_hi[22] = document.getElementById('jusyo_aichi');
+			jusyo_hi[23] = document.getElementById('jusyo_mie');
+			jusyo_hi[24] = document.getElementById('jusyo_shiga');
+			jusyo_hi[25] = document.getElementById('jusyo_kyoto');
+			jusyo_hi[26] = document.getElementById('jusyo_osaka');
+			jusyo_hi[27] = document.getElementById('jusyo_hyogo');
+			jusyo_hi[28] = document.getElementById('jusyo_nara');
+			jusyo_hi[29] = document.getElementById('jusyo_wakayama');
+			jusyo_hi[30] = document.getElementById('jusyo_tottori');
+			jusyo_hi[31] = document.getElementById('jusyo_shimane');
+			jusyo_hi[32] = document.getElementById('jusyo_okayama');
+			jusyo_hi[33] = document.getElementById('jusyo_hiroshima');
+			jusyo_hi[34] = document.getElementById('jusyo_yamaguchi');
+			jusyo_hi[35] = document.getElementById('jusyo_tokushima');
+			jusyo_hi[36] = document.getElementById('jusyo_kagawa');
+			jusyo_hi[37] = document.getElementById('jusyo_ehime');
+			jusyo_hi[38] = document.getElementById('jusyo_kochi');
+			jusyo_hi[39] = document.getElementById('jusyo_fukuoka');
+			jusyo_hi[40] = document.getElementById('jusyo_saga');
+			jusyo_hi[41] = document.getElementById('jusyo_nagasaki');
+			jusyo_hi[42] = document.getElementById('jusyo_kumamoto');
+			jusyo_hi[43] = document.getElementById('jusyo_oita');
+			jusyo_hi[44] = document.getElementById('jusyo_miyazaki');
+			jusyo_hi[45] = document.getElementById('jusyo_kagoshima');
+			jusyo_hi[46] = document.getElementById('jusyo_okinawa');
+
+			
+			/* divに掲載 */
+			for (var i = 0;  i < 47;  i++){
+			jusyo_hi[i].innerHTML = "<center>重症者／病床数<br>" + heavy[i] + "／" + jusho_bed[i] + "</center>";
+			}
+			
+			/* 色分け判定 */
+			for(var i = 0;  i < 47;  i++){
+				if( heavy[i] > jusho_bed[i]){
+					jusyo_hi[i].style.backgroundColor = '#FF0000';
+				}
+				else if( heavy[i] > jusho_bed[i]*0.5){
+					jusyo_hi[i].style.backgroundColor = '#FF9900';
+				}
+				else if( heavy[i] > jusho_bed[i]*0.2){
+					jusyo_hi[i].style.backgroundColor = '#FFFF00';
+					jusyo_hi[i].style.color = "#000000";
+				}
+				else if( heavy[i] == "0"){
+					jusyo_hi[i].style.backgroundColor = '#0000FF';
+				}
+				else{
+					jusyo_hi[i].style.backgroundColor = '#CCFF00';
+					jusyo_hi[i].style.color = "#000000";
 				}
 			}
 
@@ -519,25 +388,25 @@ density[46]="1453000";
 			y[25] = document.getElementById('3ja_kyoto');
 			y[26] = document.getElementById('3ja_osaka');
 			y[27] = document.getElementById('3ja_hyogo');
-			y[28] = document.getElementById("3ja_nara");
-			y[29] = document.getElementById("3ja_wakayama");
-			y[30] = document.getElementById("3ja_tottori");
-			y[31] = document.getElementById("3ja_shimane");
-			y[32] = document.getElementById("3ja_okayama");
-			y[33] = document.getElementById("3ja_hiroshima");
-			y[34] = document.getElementById("3ja_yamaguchi");
-			y[35] = document.getElementById("3ja_tokushima");
-			y[36] = document.getElementById("3ja_kagawa");
-			y[37] = document.getElementById("3ja_ehime");
-			y[38] = document.getElementById("3ja_kochi");
-			y[39] = document.getElementById("3ja_fukuoka");
-			y[40] = document.getElementById("3ja_saga");
-			y[41] = document.getElementById("3ja_nagasaki");
-			y[42] = document.getElementById("3ja_kumamoto");
-			y[43] = document.getElementById("3ja_oita");
-			y[44] = document.getElementById("3ja_miyazaki");
-			y[45] = document.getElementById("3ja_kagoshima");
-			y[46] = document.getElementById("3ja_okinawa");
+			y[28] = document.getElementById('3ja_nara');
+			y[29] = document.getElementById('3ja_wakayama');
+			y[30] = document.getElementById('3ja_tottori');
+			y[31] = document.getElementById('3ja_shimane');
+			y[32] = document.getElementById('3ja_okayama');
+			y[33] = document.getElementById('3ja_hiroshima');
+			y[34] = document.getElementById('3ja_yamaguchi');
+			y[35] = document.getElementById('3ja_tokushima');
+			y[36] = document.getElementById('3ja_kagawa');
+			y[37] = document.getElementById('3ja_ehime');
+			y[38] = document.getElementById('3ja_kochi');
+			y[39] = document.getElementById('3ja_fukuoka');
+			y[40] = document.getElementById('3ja_saga');
+			y[41] = document.getElementById('3ja_nagasaki');
+			y[42] = document.getElementById('3ja_kumamoto');
+			y[43] = document.getElementById('3ja_oita');
+			y[44] = document.getElementById('3ja_miyazaki');
+			y[45] = document.getElementById('3ja_kagoshima');
+			y[46] = document.getElementById('3ja_okinawa');
 
 			/* divに掲載 */
 			for (var i = 0; i < 47; i++){
@@ -603,25 +472,25 @@ density[46]="1453000";
 			h[25] = document.getElementById('yous_kyoto');
 			h[26] = document.getElementById('yous_osaka');
 			h[27] = document.getElementById('yous_hyogo');
-			h[28] = document.getElementById("yous_nara");
-			h[29] = document.getElementById("yous_wakayama");
-			h[30] = document.getElementById("yous_tottori");
-			h[31] = document.getElementById("yous_shimane");
-			h[32] = document.getElementById("yous_okayama");
-			h[33] = document.getElementById("yous_hiroshima");
-			h[34] = document.getElementById("yous_yamaguchi");
-			h[35] = document.getElementById("yous_tokushima");
-			h[36] = document.getElementById("yous_kagawa");
-			h[37] = document.getElementById("yous_ehime");
-			h[38] = document.getElementById("yous_kochi");
-			h[39] = document.getElementById("yous_fukuoka");
-			h[40] = document.getElementById("yous_saga");
-			h[41] = document.getElementById("yous_nagasaki");
-			h[42] = document.getElementById("yous_kumamoto");
-			h[43] = document.getElementById("yous_oita");
-			h[44] = document.getElementById("yous_miyazaki");
-			h[45] = document.getElementById("yous_kagoshima");
-			h[46] = document.getElementById("yous_okinawa");
+			h[28] = document.getElementById('yous_nara');
+			h[29] = document.getElementById('yous_wakayama');
+			h[30] = document.getElementById('yous_tottori');
+			h[31] = document.getElementById('yous_shimane');
+			h[32] = document.getElementById('yous_okayama');
+			h[33] = document.getElementById('yous_hiroshima');
+			h[34] = document.getElementById('yous_yamaguchi');
+			h[35] = document.getElementById('yous_tokushima');
+			h[36] = document.getElementById('yous_kagawa');
+			h[37] = document.getElementById('yous_ehime');
+			h[38] = document.getElementById('yous_kochi');
+			h[39] = document.getElementById('yous_fukuoka');
+			h[40] = document.getElementById('yous_saga');
+			h[41] = document.getElementById('yous_nagasaki');
+			h[42] = document.getElementById('yous_kumamoto');
+			h[43] = document.getElementById('yous_oita');
+			h[44] = document.getElementById('yous_miyazaki');
+			h[45] = document.getElementById('yous_kagoshima');
+			h[46] = document.getElementById('yous_okinawa');
 
 	/* 陽性率　厚労省 */
 	var xhr3 = new XMLHttpRequest();
@@ -680,12 +549,9 @@ density[46]="1453000";
 				}
 		}
 
-    	};/* xhr3末端 */
 
       var day1 = json_data.lastUpdate.split("-");
-      document.getElementById('day').innerHTML = "厚生労働省：" + day1[0] + "." + day1[1] + "." + day1[2];
-      
-      document.getElementById('ji_day').innerHTML = ji_update;
+      document.getElementById('day').innerHTML = day1[0] + "." + day1[1] + "." + day1[2];
       
     }
 
@@ -801,11 +667,5 @@ function online(x){
 document.getElementById('onlinemap').innerHTML = "<h3 class='ti'>地図から探す</h3><iframe src = 'onlinemap/" + online_pref[x -1] + ".html' width='100%' height='450px'>";
 
 document.getElementById('onlinelist').innerHTML = "<br><h3 class='ti'>リストから探す</h3><iframe src = 'onlinelist/" + online_pref[x -1] + ".html' width='100%' height='450px'>";
-
-}
-
-function ji_day(){
-
-	$("#ji_day").slideToggle(500);
 
 }

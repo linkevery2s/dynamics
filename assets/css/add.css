@@ -97,8 +97,20 @@ h3.ti::before {
 		font-weight: bold;
 	}
 
+	.gra{
+		border-radius: 0.35em;
+		display: block;
+		margin: 0 0 0.2em 0;
+		padding: 0.5em;
+		width: 100%;
+		color: #ffffff;
+		background-color: #F56D99;
+		font-weight: bold;
+		text-align: center;
+	}
+
 		@media screen and (max-width: 480px) {
-			.ja {
+			.ja, .gra {
 					font-size: 0.7em;
 					line-height: 1.1em;
 			}
