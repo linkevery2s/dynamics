@@ -668,4 +668,5 @@ document.getElementById('onlinemap').innerHTML = "<h3 class='ti'>地図から探
 
 document.getElementById('onlinelist').innerHTML = "<br><h3 class='ti'>リストから探す</h3><iframe src = 'onlinelist/" + online_pref[x -1] + ".html' width='100%' height='450px'>";
 
+
 }
