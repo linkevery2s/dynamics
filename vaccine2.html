@@ -20,6 +20,8 @@
 		const urlp = "https://code4fukui.github.io/population_jp/population_jp.csv";
 		const pop = CSV.parse(await (await fetch(urlp)).text());
 		
+update.innerHTML = "最終更新日：" + data[0].date;
+
 			// ランキング計算
 			const tbl = [];
 				for (let i = 0; i < 47; i++) {
@@ -83,6 +85,10 @@ li:nth-child(odd) {
     
     </style>
 	</head>
+
+<body>
+
+<div id="update"></div>
 
   		<ul>
 			<div id="vaccine"></div>
