@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+	<title>海外の情報</title>
+  	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/list.css" />
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
+	<script>
+		function get(){
+
+			const xhr = new XMLHttpRequest();
+			const url = "https://app.sabae.cc/api/globalsafe.json?&limit=10";
+			xhr.open('GET', url);
+			xhr.send(null);
+			xhr.onreadystatechange = function(){
+				if (xhr.readyState === 4 && xhr.status === 200){
+				const json_data = eval( '('+xhr.responseText +')');
+				
+					info.innerHTML = "";
+					for (let i = 0; i < 10; i++){
+					info.innerHTML += "<li class='link'>" + json_data[i].title;
+					info.innerHTML += "<span class='area'>" + json_data[i].area.name + "</span>" + " " + "<span class='country'>" + json_data[i].country.name + "</span>";
+					info.innerHTML += "<br>" + json_data[i].leaveDate + " " + json_data[i].koukanName;
+					info.innerHTML += "<br>" + json_data[i].lead;
+					info.innerHTML += "<a href='" + json_data[i].infoUrl + "'>詳細</a>";
+
+					info.innerHTML += "</li>";
+					}
+				}
+			}
+
+		};
+		
+		
+	</script>
+
+    <style>
+    
+html,body{
+margin: 0; padding: 0;
+font-family: "Meiryo", "Hiragino Kaku Gothic OriN", sans-serif;
+width: 100%;
+}
+
+#p_r{color: #ff0000;font-weight: 900;}
+
+ul,li{
+	list-style: none;
+	padding: 0;
+}
+
+li:nth-child(even) {
+    background:#f2f2f2;
+}
+	
+li:nth-child(odd) {
+    background:#ffffff;
+}
+
+.link{
+	border: solid #b2b2b2;
+	border-width: 2px 0 0 0;
+	padding: 5px;
+	display: block;
+}
+
+.link:last-child{
+	/*最後のリンクに下線を付ける*/
+	border-bottom-width: 2px;
+}
+    
+    </style>
+	</head>
+	<body onLoad="get();">
+	
+	  	<ul>
+			<div id="info"></div>
+		</ul>
+	
+	</body>
+</html>
