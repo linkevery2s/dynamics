@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
-	<title>海外の情報</title>
+	<title>海外安全情報</title>
   	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="css/list.css" />
@@ -11,22 +11,16 @@
 		function get(){
 
 			const xhr = new XMLHttpRequest();
-			const url = "https://app.sabae.cc/api/globalsafe.json?&limit=10";
+			const url = "https://app.sabae.cc/api/globalsafe.json?key=%E3%82%B3%E3%83%AD%E3%83%8A";
 			xhr.open('GET', url);
 			xhr.send(null);
 			xhr.onreadystatechange = function(){
 				if (xhr.readyState === 4 && xhr.status === 200){
 				const json_data = eval( '('+xhr.responseText +')');
-				
-					info.innerHTML = "";
-					for (let i = 0; i < 10; i++){
-					info.innerHTML += "<li class='link'>" + json_data[i].title;
-					info.innerHTML += "<span class='area'>" + json_data[i].area.name + "</span>" + " " + "<span class='country'>" + json_data[i].country.name + "</span>";
-					info.innerHTML += "<br>" + json_data[i].leaveDate + " " + json_data[i].koukanName;
-					info.innerHTML += "<br>" + json_data[i].lead;
-					info.innerHTML += "<a href='" + json_data[i].infoUrl + "'>詳細</a>";
 
-					info.innerHTML += "</li>";
+					info.innerHTML = "";
+					for (let i = 0; i < json_data.length; i++){
+					info.innerHTML += "<li class='link'><div class='title'>" + json_data[i].title + "</div><span class='area'>" + json_data[i].area.name + "</span>" + " " + "<span class='country'>" + json_data[i].country.name + "</span>" + "<br>" + json_data[i].leaveDate + " " + json_data[i].koukanName + "<br>" + json_data[i].lead.replace(/\r?\n/g, "<br>") + "<br><a href='" + json_data[i].infoUrl + "' target='_blank'>[詳細]</a></li>";
 					}
 				}
 			}
@@ -46,23 +40,29 @@ width: 100%;
 
 #p_r{color: #ff0000;font-weight: 900;}
 
-ul,li{
+ul{
 	list-style: none;
 	padding: 0;
+	margin:0;
+	width: 100%;
 }
 
-li:nth-child(even) {
-    background:#f2f2f2;
-}
-	
-li:nth-child(odd) {
-    background:#ffffff;
+.title{
+	margin:0;
+	background: #007bbb;
+	padding: 0.5em;
+	width: 98%;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 1.5rem;
+	border-radius: 10px;
 }
 
 .link{
 	border: solid #b2b2b2;
 	border-width: 2px 0 0 0;
-	padding: 5px;
+	line-height: 2em;
+	padding: 0.5em;
 	display: block;
 }
 
