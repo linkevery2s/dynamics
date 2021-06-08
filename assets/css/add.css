@@ -5,6 +5,16 @@ html,body{
 	font-family: "Meiryo", "Hiragino Kaku Gothic OriN", sans-serif;
 }
 
+@media screen and (max-width: 768px) {
+	#header span{
+		display: inline-block;
+	}
+}
+
+body{
+	background: linear-gradient(90deg,#fff 0%,#fff 85%,rgba(255, 255, 255, 0.9) 15%,rgba(255, 255, 255, 0.9) 100%), url(../../images/back2.png);
+}
+
 #map, #map2{
 	width: 100%;
 	height: 500px;

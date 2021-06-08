@@ -132,7 +132,7 @@ function get_kansen(){
 			
 			/* divに掲載 */
 			for (var i = 0;  i < 47;  i++){
-			syoki[i].innerHTML = json_data.area[i].name_jp + "<br>検査数：" + kensa[i] + "<br>陽性者：" + yousei[i] + "<br>退院者：" + taiin[i] + "<br>現患者：" + ncurrent[i] + "<br>死亡者：" + death[i];
+			syoki[i].innerHTML = json_data.area[i].name_jp + "<br>検査数：" + kensa[i].toLocaleString() + "<br>陽性者：" + yousei[i].toLocaleString() + "<br>退院者：" + taiin[i].toLocaleString() + "<br>現患者：" + ncurrent[i].toLocaleString() + "<br>死亡者：" + death[i].toLocaleString();
 			}
 
 			/* 全体 */
@@ -150,11 +150,11 @@ function get_kansen(){
 				total_death += death[i];}
 			}
 
-			var txt = "日本全国<br>検査数：" + json_data.ninspections;
-			txt += "<br>陽性者：" + total_yousei;
-			txt += "<br>退院者：" + total_taiin;
-			txt += "<br>現患者：" + total_ncurrent;
-			txt += "<br>死亡者：" + total_death;
+			var txt = "日本全国<br>検査数：" + json_data.ninspections.toLocaleString();
+			txt += "<br>陽性者：" + total_yousei.toLocaleString();
+			txt += "<br>退院者：" + total_taiin.toLocaleString();
+			txt += "<br>現患者：" + total_ncurrent.toLocaleString();
+			txt += "<br>死亡者：" + total_death.toLocaleString();
 			document.getElementById('ja_ka').innerHTML = txt;
 			
 			x[0] = document.getElementById('2ja_hokkaido');
@@ -210,7 +210,7 @@ function get_kansen(){
 
 			/* divに掲載 */
 			for (var i = 0;  i < 47;  i++){
-			x[i].innerHTML = json_data.area[i].name_jp +"<br><center>現患者数／病床数<br>" + ncurrent[i] + "／" + bed[i] +  "</center>医療病床：" + hos_bed[i] + "<br>宿泊施設：" + yado_bed[i];
+			x[i].innerHTML = json_data.area[i].name_jp +"<br><center>現患者数／病床数<br>" + ncurrent[i].toLocaleString() + "／" + bed[i].toLocaleString() +  "</center>医療病床：" + hos_bed[i].toLocaleString() + "<br>宿泊施設：" + yado_bed[i].toLocaleString();
 			}
 
 			/* 色分け判定 */

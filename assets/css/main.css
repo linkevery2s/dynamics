@@ -154,7 +154,22 @@ input, select, textarea {
 	h2 {
 		font-size: 1.5em;
 		line-height: 1.5em;
-		border-bottom: 3px double #2E64FE;
+		/*border-bottom: 3px double #2E64FE;*/
+	}
+	
+	h2::before {
+	content: attr(data-en);
+	display: block;
+	color: #498ee0;
+	font-size: 18px;
+}
+
+	h2::after {
+	content: '';
+	display: block;
+	width: 40px;
+	height: 1px;
+	background-color: #498ee0;
 	}
 
 	h3 {
@@ -200,11 +215,11 @@ input, select, textarea {
 		}
 
 	blockquote {
-		border-left: solid 6px #0066CC;
+		border-left: solid 6px #3eb08f;
 		/*font-style: italic;*/
 		margin: 0 0 2em 0;
 		padding: 0.5em 0 0.5em 1.5em;
-		background: rgba(238, 242, 255, 0.6);
+		
 	}
 
 	code {
@@ -2697,7 +2712,6 @@ input, select, textarea {
 		max-width: 54em;
 		padding: 4em 4em 4em 4em;
 		width: calc(100% - 35%);
-		background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url(../../images/back.png) repeat-y right top;
 		background-size: 40%;
 	}
 
