@@ -30,7 +30,7 @@ update.innerHTML = "最終更新日：" + data[0].date;
 				
 				const f = ( data[i].sum / pop[i].population_jp ) * 100;
 				
-				vaccine.innerHTML+= "<li class='link'>" + data[i].pref + "<br>1回目：" + Number(data[i].mid).toLocaleString() + "、接種率：<span id='p_r'>" + p.toFixed(2) + "％</span>" +"<br>2回目：" + Number(data[i].sum).toLocaleString() + "、接種率：<span id='p_r'>" + f.toFixed(2) + "％</span></li>";
+				vaccine.innerHTML+= "<li class='link'>" + data[i].pref + "<br>１回目：" + Number(data[i].mid).toLocaleString() + "、接種率：<span id='p_r'>" + p.toFixed(2) + "％</span>" +"<br>２回目：" + Number(data[i].sum).toLocaleString() + "、接種率：<span id='p_r'>" + f.toFixed(2) + "％</span></li>";
 			
 			}
 		};
