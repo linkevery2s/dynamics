@@ -30,7 +30,7 @@ body{
   position: fixed;
   right: 15px;
   bottom: 15px;
-  background: #3f98ef;
+  background: #498ee0;
   opacity: 0.9;
   border-radius: 50%;
   z-index: 2;
@@ -103,7 +103,7 @@ h3.ti::before {
 		padding: 0.5em;
 		width: 100%;
 		color: #ffffff;
-		background-color: #0000ff;
+		background-color: #0000FF;
 		font-weight: bold;
 	}
 
@@ -114,11 +114,11 @@ h3.ti::before {
 		padding: 0.5em;
 		width: 100%;
 		color: #ffffff;
-		background-color: #F56D99;
+		background-color: #3eb08f;
 		font-weight: bold;
 		text-align: center;
 	}
-
+	
 		@media screen and (max-width: 480px) {
 			.ja, .gra {
 					font-size: 0.7em;
@@ -178,9 +178,8 @@ h3.ti::before {
   height: 120px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  background: rgba(255, 255, 204, 0.7);
   padding: 0.5em;
-  border: solid 3px #FFCC66;
+  border: solid 3px #49bf9d;
   border-radius: 10px;
 }
 
@@ -223,3 +222,10 @@ h3.ti::before {
 .balloon4:after {content: "";position: absolute;left: -24px;width: 20px;height: 18px;bottom: 3px;background: rgba(255, 240, 198,0.8);border-radius: 50%;}
 .balloon4 p {margin: 0; padding: 0;}
 
+ul.vaccine{
+	list-style: none;
+}
+
+ul.vaccine li{
+	text-align: center;
+}
