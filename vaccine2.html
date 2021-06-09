@@ -39,7 +39,7 @@ update.innerHTML = "最終更新日：" + data[0].date;
 			
 			for (let i = 0; i < 47; i++){
 			
-				vaccine.innerHTML += "<li class='link'>" + tbl[i].都道府県 + "<br>1回目接種率：<span id='p_r'>" + tbl[i].初回接種率 + "</span>、2回目接種率：<span id='p_r'>" + tbl[i].接種完了率 + "</li>";
+				vaccine.innerHTML += "<li class='link'>" + tbl[i].都道府県 + "<br>１回目：<span id='p_r'>" + tbl[i].初回接種率 + "</span>、２回目：<span id='p_r'>" + tbl[i].接種完了率 + "</li>";
 			
 			}
 		};
