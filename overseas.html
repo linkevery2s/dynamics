@@ -4,7 +4,6 @@
 	<title>海外安全情報</title>
   	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="css/list.css" />
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 
 	<script>
@@ -12,6 +11,7 @@
 
 			const xhr = new XMLHttpRequest();
 			const url = "https://app.sabae.cc/api/globalsafe.json?key=%E3%82%B3%E3%83%AD%E3%83%8A";
+			
 			xhr.open('GET', url);
 			xhr.send(null);
 			xhr.onreadystatechange = function(){
@@ -20,7 +20,7 @@
 
 					info.innerHTML = "";
 					for (let i = 0; i < json_data.length; i++){
-					info.innerHTML += "<li class='link'><div class='title'>" + json_data[i].title + "</div><span class='area'>" + json_data[i].area.name + "</span>" + " " + "<span class='country'>" + json_data[i].country.name + "</span>" + "<br>" + json_data[i].leaveDate + " " + json_data[i].koukanName + "<br>" + json_data[i].lead.replace(/\r?\n/g, "<br>") + "<br><a href='" + json_data[i].infoUrl + "' target='_blank'>[詳細]</a></li>";
+					info.innerHTML += "<li class='link'><div class='title'>" + json_data[i].title + "</div>" + /*"<span class='area'>" + json_data[i].area.name + "</span>" + " " + "<span class='country'>" + json_data[i].country.name + "</span>" + "<br>" +*/ json_data[i].leaveDate + " " + json_data[i].koukanName + "<br>" + json_data[i].lead.replace(/\r?\n/g, "<br>") + "<br><a href='" + json_data[i].infoUrl + "' target='_blank'>[詳細]</a></li>";
 					}
 				}
 			}
