@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+
+<head>
+	<title>COVID-19 感染症動態</title>
+
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="国・自治体のオープンデータをもとに、新型コロナウイルスの感染状況を動態として可視化しました。">
+		<meta property="og:title" content="COVID-19 感染症動態" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://covid19dynamics.netlify.app/index.html" />
+		<meta property="og:image" content="https://covid19dynamics.netlify.app/images/top.jpg" />
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="COVID-19 感染症動態" />
+		<meta name="twitter:description" content="国・自治体のオープンデータをもとに、新型コロナウイルスの感染状況を動態として可視化しました。" />
+		<meta name="twitter:image" content="https://covid19dynamics.netlify.app/images/top.jpg" />
+		<meta name="author" content="仁志">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		<script src='js/bootstrap.min.js'></script>
+		<link rel="apple-touch-icon" href="https://covid19dynamics.netlify.app/images/apple-touch-icon.jpg">
+		<link rel="shortcut icon" href="https://covid19dynamics.netlify.app/images/apple-touch-icon.jpg">
+		<script src='js/main.js'></script>
+		<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+		<link rel="manifest" href="./manifest.json">
+		<script>
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register('./service-worker.js').then(function() {
+					console.log('Service Worker Registered');
+				});
+			}
+		</script>
+
+	</head>
+
+<body onload="ini()">
+
+	<div class="header">
+
+		<h1>COVID-19 感染症動態</h1>
+
+	</div>
+
+	<div class="main">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8">
+					<p>国・自治体のオープンデータをもとに、新型コロナウイルスの感染状況を動態として可視化しました。</p>
+				</div>
+				<div class="col-sm-2"></div>
+			</div><!-- row -->
+
+
+			<div class="row">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-5">
+
+					<div id="w-back">新規陽性者数
+						<span id="day_yousei"></span>人<br>
+						累計：<span id="total_yousei"></span>人
+					</div>
+
+				</div>
+				<div class="col-sm-5">
+
+					<div id="w-back">入院治療等を要する者</div>
+
+				</div>
+				<div class="col-sm-1"></div>
+			</div><!-- row -->
+
+			<div class="row">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-5">
+
+					<div id="w-back">重傷者数</div>
+
+				</div>
+				<div class="col-sm-5">
+
+					<div id="w-back">感染密度</div>
+
+				</div>
+				<div class="col-sm-1"></div>
+			</div><!-- row -->
+
+		</div><!-- container -->
+
+	</div><!-- main -->
+
+	<div class="footer">
+		&copy; 仁志、防災エンジニア
+	</div>
+
+</body>
+
+</html>
