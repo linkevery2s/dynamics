@@ -1,4 +1,9 @@
 <!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html lang="ja">
 
 <head>
@@ -7,23 +12,23 @@
 	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="description" content="国・自治体のオープンデータをもとに、新型コロナウイルスの感染状況を動態として可視化しました。">
+		<meta name="description" content="国・自治体の資料をもとに、新型コロナウイルスの感染状況を動態として可視化しました。">
 		<meta property="og:title" content="COVID-19 感染症動態" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://covid19dynamics.netlify.app/index.html" />
 		<meta property="og:image" content="https://covid19dynamics.netlify.app/images/top.jpg" />
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content="COVID-19 感染症動態" />
-		<meta name="twitter:description" content="国・自治体のオープンデータをもとに、新型コロナウイルスの感染状況を動態として可視化しました。" />
+		<meta name="twitter:description" content="国・自治体の資料をもとに、新型コロナウイルスの感染状況を動態として可視化しました。" />
 		<meta name="twitter:image" content="https://covid19dynamics.netlify.app/images/top.jpg" />
 		<meta name="author" content="仁志">
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/main.css" />
-		<script src='js/bootstrap.min.js'></script>
+		<link rel="stylesheet" href="assets/css/maplist.css" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/add.css" />
+		<link rel="stylesheet" href="assets/css/jquery.fancybox.css">
 		<link rel="apple-touch-icon" href="https://covid19dynamics.netlify.app/images/apple-touch-icon.jpg">
 		<link rel="shortcut icon" href="https://covid19dynamics.netlify.app/images/apple-touch-icon.jpg">
-		<script src='js/main.js'></script>
-		<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+		<script src='assets/js/map.js'></script>
 		<link rel="manifest" href="./manifest.json">
 		<script>
 			if ('serviceWorker' in navigator) {
@@ -35,66 +40,474 @@
 
 	</head>
 
-<body onload="ini()">
+<body class="is-preload" onLoad="ini()">
 
-	<div class="header">
+	<!-- Header -->
+	<header id="header">
+		<div class="inner">
+			<a href="#" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+			<h1><strong>COVID-19 感染症動態</strong></h1>
+			<p><span>国・自治体の資料をもとに、</span><span>新型コロナウイルスの感染状況を</span><span>動態として可視化しました。</span></p>
+		</div>
+	</header>
 
-		<h1>COVID-19 感染症動態</h1>
+	<!-- menu-toggle -->
+	<div id="menu_toggle" onclick="menu_display()"><i class="fa fa-bars" style="line-height:40px;"></i></div>
+
+	<div id="menu-content"><span id="modal-close">×</span>
+		<center>
+			<h1><span>ＭＥＮＵ</span></h1>
+		</center>
+
+		<ul class="accordion-menu">
+			<li>
+				<div class="dropdown" onclick="link(2)"><i class="fa fa-clipboard" aria-hidden="true"></i> 国内の感染者数
+				</div>
+			</li>
+			<li>
+				<div class="dropdown" onclick="link(5)"><i class="fa fa-clipboard" aria-hidden="true"></i> 地域分析
+				</div>
+			</li>
+			<li>
+				<div class="dropdown" onclick="link(9)"><i class="fa fa-clipboard" aria-hidden="true"></i> オンライン診療医療機関
+				</div>
+			</li>
+			<li>
+				<div class="dropdown" onclick="link(3)"><i class="fa fa-clipboard" aria-hidden="true"></i> 民間企業の取り組み
+				</div>
+			</li>
+			<li>
+				<div class="dropdown" onclick="link(6)"><i class="fa fa-clipboard" aria-hidden="true"></i> 感染者の初期症状
+				</div>
+			</li>
+			<li>
+				<div class="dropdown" onclick="link(8)"><i class="fa fa-clipboard" aria-hidden="true"></i> 国内年表・海外安全情報
+				</div>
+			</li>
+			<li>
+				<div class="dropdown" onclick="link(7)"><i class="fa fa-clipboard" aria-hidden="true"></i> 関連情報など
+				</div>
+			</li>
+		</ul>
 
 	</div>
 
-	<div class="main">
 
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-2"></div>
-				<div class="col-sm-8">
-					<p>国・自治体のオープンデータをもとに、新型コロナウイルスの感染状況を動態として可視化しました。</p>
+	<!-- Main -->
+	<div id="main">
+
+		<section id="japan"><span id="2"></span>
+			<h2 data-en="Number Of Infected People">国内の感染状況</h2>
+			最終更新：<span id="day"></span>
+
+				<div class="box alt">
+					<div class="row gtr-50 gtr-uniform">
+						<div class="col-12">
+							<div class="total">
+							新規陽性者数：<span id="day_yousei"></span> 人
+							<div id="m-right">累計：<span id="total_yousei"></span> 人</div>
+							</div>
+							<div class="total">
+							重傷者数：<span id="day_ju"></span> 人
+							<div id="m-right">累計：<span id="total_ju"></span> 人</div>
+							</div>
+							<div class="total">
+							入院治療等を要する者：<span id="day_nyu"></span> 人
+							<div id="m-right">累計：<span id="total_nyu"></span> 人</div>
+							</div>
+							<div class="total">
+							死亡者数：<span id="day_si"></span> 人
+							<div id="m-right">累計：<span id="total_si"></span> 人</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="col-sm-2"></div>
-			</div><!-- row -->
 
 
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-5">
 
-					<div id="w-back">新規陽性者数
-						<span id="day_yousei"></span>人<br>
-						累計：<span id="total_yousei"></span>人
+
+
+
+			<blockquote>
+				出典
+			</blockquote>
+
+		</section>
+
+		<section id="tiiki"><span id="5"></span>
+			<h2 data-en="Regional Analysis">地域分析</h2>
+
+					<div class="col-12">
+						<select name="demo-category" id="demo-category">
+							<option value="">- 都道府県選択 -</option>
+							<option value="0">北海道</option>
+							<option value="1">青森県</option>
+							<option value="2">岩手県</option>
+							<option value="3">宮城県</option>
+							<option value="4">秋田県</option>
+							<option value="5">山形県</option>
+							<option value="6">福島県</option>
+							<option value="7">茨城県</option>
+							<option value="8">栃木県</option>
+							<option value="9">群馬県</option>
+							<option value="10">埼玉県</option>
+							<option value="11">千葉県</option>
+							<option value="12">東京都</option>
+							<option value="13">神奈川県</option>
+							<option value="14">新潟県</option>
+							<option value="15">富山県</option>
+							<option value="16">石川県</option>
+							<option value="17">福井県</option>
+							<option value="18">山梨県</option>
+							<option value="19">長野県</option>
+							<option value="20">岐阜県</option>
+							<option value="21">静岡県</option>
+							<option value="22">愛知県</option>
+							<option value="23">三重県</option>
+							<option value="24">滋賀県</option>
+							<option value="25">京都府</option>
+							<option value="26">大阪府</option>
+							<option value="27">兵庫県</option>
+							<option value="28">奈良県</option>
+							<option value="29">和歌山県</option>
+							<option value="30">鳥取県</option>
+							<option value="31">島根県</option>
+							<option value="32">岡山県</option>
+							<option value="33">広島県</option>
+							<option value="34">山口県</option>
+							<option value="35">徳島県</option>
+							<option value="36">香川県</option>
+							<option value="37">愛媛県</option>
+							<option value="38">高知県</option>
+							<option value="39">福岡県</option>
+							<option value="40">佐賀県</option>
+							<option value="41">長崎県</option>
+							<option value="42">熊本県</option>
+							<option value="43">大分県</option>
+							<option value="44">宮崎県</option>
+							<option value="45">鹿児島県</option>
+							<option value="46">沖縄県</option>
+						</select>
 					</div>
 
+		</section>
+
+		<section id="compare">
+			<h2 data-en="Vaccine Inoculation Rate">救急搬送情報</h2>
+
+		</section>
+
+		<section id="compare">
+			<h2 data-en="Vaccine Inoculation Rate">過去の流行比較</h2>
+
+		</section>
+
+		<section id="japan"><span id="1"></span>
+			<h2 data-en="Vaccine Inoculation Rate">ワクチン接種率</h2>
+
+			<div class="box alt">
+				<div class="row gtr-50 gtr-uniform">
+					<div class="col-6">
+						<ul class="actions fit">
+							<li><a data-fancybox data-type="iframe" href="vaccine.html?iframe" class="button primary fit">都道府県順</a></li>
+						</ul>
+					</div>
+					<div class="col-6">
+						<ul class="actions fit">
+							<li><a data-fancybox data-type="iframe" href="vaccine2.html?iframe" class="button primary fit">ランキング</a></li>
+						</ul>
+					</div>
 				</div>
-				<div class="col-sm-5">
+			</div>
 
-					<div id="w-back">入院治療等を要する者</div>
+			<p>ワクチンの接種率（医療従事者除く）です。医療従事者を含むデータは、<a href="https://www.kantei.go.jp/jp/headline/kansensho/vaccine.html" target="_blank">新型コロナワクチンについて、首相官邸ホームページ <i class="fas fa-external-link-alt"></i></a>を参照してください。</p>
 
+			<blockquote>
+				出典
+				<br>・<a href="https://cio.go.jp/c19vaccine_dashboard" target="_blank">新型コロナワクチンの接種状況（高齢者等） <i class="fas fa-external-link-alt"></i></a>
+				<br>・<a href="https://github.com/code4fukui/covid19vaccine/" target="_blank">covid19vaccine by Code for Fukui <i class="fas fa-external-link-alt"></i></a>
+				<br>・<a href="https://github.com/code4fukui/population_jp/" target="_blank">日本の都道府県別人口推計 by Code for Fukui <i class="fas fa-external-link-alt"></i></a>
+			</blockquote>
+		</section>
+
+		<section id="enterprise"><span id="3"></span>
+			<h2 data-en="Corporate Initiatives">民間企業の取り組み</h2>
+
+			<div class="balloon4">
+				<p>新型コロナウイルス対策に取り組んでいる民間企業の方々の取り組みを掲載しています。各企業様のウェブサイトの利用規約に準拠し、個別に掲載の許諾を頂きました。<br>
+					この場をお借りして、感謝申し上げます。ありがとうございました。仁志.</p>
+			</div>
+
+			<iframe src="enterprise.html" width="100%" height="450px"></iframe>
+		</section>
+
+			<section id="enterprise"><span id="8"></span>
+			<h2 data-en="Chronology・Overseas Safety Informations">国内年表・海外安全情報</h2>
+
+			<div class="box alt">
+				<div class="row gtr-50 gtr-uniform">
+					<div class="col-6">
+						<ul class="actions fit">
+							<li><a href="timeline/index.html" class="button primary fit">国内年表</a></li>
+						</ul>
+					</div>
+					<div class="col-6">
+						<ul class="actions fit">
+							<li><a href="overseas.html" class="button primary fit">海外安全情報</a></li>
+						</ul>
+					</div>
 				</div>
-				<div class="col-sm-1"></div>
-			</div><!-- row -->
+			</div>
 
+			<blockquote>
+				出典<br>
+				・<a href="https://www.ezairyu.mofa.go.jp/html/opendata/index.html" target="_blank">海外安全情報オープンデータ <i class="fas fa-external-link-alt"></i></a>、外務省
+			</blockquote>
+
+		</section>
+
+		<section id="kanren"><span id="7"></span>
+			<h2 data-en="Related Informations">関連情報</h2>
+			<h3 class="ti">参考画像／動画</h3>
+			<div class="box alt">
+				<div class="row gtr-50 gtr-uniform">
+					<div class="col-4"><a href="images/fulls/who2.jpg" data-lightbox="abc" data-title="隔離期間"><img src="images/fulls/who2.jpg" width="100%" alt="隔離期間"></a></div>
+					<div class="col-4"><a href="images/fulls/who3.jpg" data-lightbox="abc" data-title="2m"><img src="images/fulls/who3.jpg" width="100%" alt="2m"></a></div>
+					<div class="col-4"><span class="video-link demo-link" data-video-id="AZULaaJm_nI"><img src="images/fulls/8ratio.jpg" width="100%" alt="8割の接触を避ける意味、解説動画"></span></div>
+				</div>
+			</div>
+
+			<h3 class="ti">感染防止動画</h3>
+			<p>自衛隊中央病院の感染防止動画です。</p>
+			<div class="box alt">
+				<div class="row gtr-50 gtr-uniform">
+					<div class="col-6"><span class="video-link demo-link" data-video-id="H7eA-u7yLsk"><img src="images/fulls/jiei1.jpg" width="100%" alt="8割の接触を避ける意味、解説動画"></span></div>
+					<div class="col-6"><span class="video-link demo-link" data-video-id="R0zwUHlynH8"><img src="images/fulls/jiei2.jpg" width="100%" alt="8割の接触を避ける意味、解説動画"></span></div>
+					<div class="col-6"><span class="video-link demo-link" data-video-id="a5_NKl1Kygk"><img src="images/fulls/jiei3.jpg" width="100%" alt="8割の接触を避ける意味、解説動画"></span></div>
+					<div class="col-6"><span class="video-link demo-link" data-video-id="Jcjx9zBqahs"><img src="images/fulls/jiei4.jpg" width="100%" alt="8割の接触を避ける意味、解説動画"></span></div>
+				</div>
+			</div>
+
+			<hr>
+			<h3 class="ti">関連リンク</h3>
+			<div class="box alt">
+				<div class="row gtr-50 gtr-uniform">
+					<div class="col-4"><a href="https://www.stopcovid19.jp/" target="_blank"><span class="image fit"><img src="images/thumbs/covid-19j.png" alt="" />新型コロナウイルス対策ダッシュボード <i class="fas fa-external-link-alt"></i></span></a></div>
+					<div class="col-4"><a href="https://rabbitprogram.com/support/threec" target="_blank"><span class="image fit"><img src="images/thumbs/threec.png" alt="" />三密チェッカー <i class="fas fa-external-link-alt"></i></span></a></div>
+					<div class="col-4"><a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000164708_00001.html" target="_blank"><span class="image fit"><img src="images/thumbs/mhlw.png" alt="" />厚生労働省 新型コロナウイルス感染症について <i
+									class="fas fa-external-link-alt"></i></span></a></div>
+					<div class="col-4"><a href="https://stopcovid19.metro.tokyo.lg.jp/" target="_blank"><span class="image fit"><img src="images/thumbs/tokyo.png" alt="" />東京都 新型コロナウイルス感染症対策サイト <i class="fas fa-external-link-alt"></i></span></a></div>
+					<div class="col-4"><a href="https://cio.go.jp/hosp_monitoring_c19" target="_blank"><span class="image fit"><img src="images/thumbs/ciomedical.png" alt="" />医療提供体制の状況 <i class="fas fa-external-link-alt"></i></span></a></div>
+					<div class="col-4"><a href="https://corona.go.jp/" target="_blank"><span class="image fit"><img src="images/thumbs/naikaku.png" alt="" />新型コロナウイルス感染症対策 内閣官房 <i class="fas fa-external-link-alt"></i></span></a></div>
+					<div class="col-4"><a href="https://vscovid19.code4japan.org/" target="_blank"><span class="image fit"><img src="images/thumbs/vscovid19.png" alt="" />#民間支援情報ナビ <i class="fas fa-external-link-alt"></i></span></a></div>
+					<div class="col-4"><a href="https://zaikosokuho.com/" target="_blank"><span class="image fit"><img src="images/thumbs/zaikosokuho.png" alt="" />在庫速報.com <i class="fas fa-external-link-alt"></i></span></a></div>
+				</div>
+
+			</div>
+			<hr>
 			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-5">
-
-					<div id="w-back">重傷者数</div>
-
+				<div class="col-6 col-12-xsmall">
+					<h3 class="ti">参考文献</h3>
+					<ul>
+						<li><a href="https://linkevery2s.github.io/bsinsight/index.html" target="_blank">防災INSIGHT <i class="fas fa-external-link-alt"></i></a></li>
+						<li><a href="https://www.mhlw.go.jp/stf/houdou/index.html" target="_blank">厚生労働省 報道発表資料 <i class="fas fa-external-link-alt"></i></a></li>
+						<li><a href="https://fukuno.jig.jp/2788" target="_blank">新型コロナウイルス陽性患者数PDFデータをJSON-API化 <i class="fas fa-external-link-alt"></i></a></li>
+						<li><a href="https://www.e-stat.go.jp/" target="_blank">e-Stat 政府統計の総合窓口 <i class="fas fa-external-link-alt"></i></a></li>
+						<li><a href="https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou15/02-02.html" target="_blank">感染症指定医療機関の指定状況 <i class="fas fa-external-link-alt"></i></a></li>
+						<!--<li><a href="https://densho810.com/free/" target="_blank">ブラックジャックによろしく <i class="fas fa-external-link-alt"></i></a></li>-->
+						<li><a href="https://www.photo-ac.com/" target="_blank">写真AC <i class="fas fa-external-link-alt"></i></a></li>
+						<li><a href="https://www.chartjs.org/" target="_blank">Chart.js <i class="fas fa-external-link-alt"></i></a></li>
+					</ul>
 				</div>
-				<div class="col-sm-5">
-
-					<div id="w-back">感染密度</div>
-
+				<div class="col-6 col-12-xsmall">
+					<h3 class="ti">ＱＲコード</h3>
+					本ＷＥＢのＱＲコードです。<br>
+					<img src="images/qr.png">
+					<br>QRコードは（株）デンソーウェーブの登録商標です。
 				</div>
-				<div class="col-sm-1"></div>
-			</div><!-- row -->
+			</div>
+		</section>
 
-		</div><!-- container -->
+		<section id="intro"><span id="1"></span>
+			<h2 data-en="Change Log">更新履歴</h2>
+			<div id="upr">
+				<table>
+					<tr>
+						<td>2022. 2. 1</td>
+						<td>バージョンアップ</td>
+					</tr>
+					<tr>
+						<td>2021. 8. 5</td>
+						<td>国内年表公開</td>
+					</tr>
+					<tr>
+						<td>2021. 6. 9</td>
+						<td>見出しデザイン仕様変更</td>
+					</tr>
+					<tr>
+						<td>2021. 6. 6</td>
+						<td>海外安全情報追加</td>
+					</tr>
+					<tr>
+						<td>2021. 6. 1</td>
+						<td>ワクチン接種率ランキング追加</td>
+					<tr>
+						<td>2021. 5.31</td>
+						<td>ワクチン接種状況追加</td>
+					<tr>
+						<td>2021. 1.10</td>
+						<td>速報値削除、重傷者と対応病床数比較可能に変更、国内感染者の初期症状追加</td>
+					<tr>
+						<td>2020.10.15</td>
+						<td>URL変更、病床数更新</td>
+					<tr>
+						<td>2020. 7. 6</td>
+						<td>重症者数追加</td>
+					<tr>
+						<td>2020. 5.17</td>
+						<td>自衛隊中央病院の感染予防動画追加</td>
+					<tr>
+						<td>2020. 5.16</td>
+						<td>検査数/陽性率/医療病床/宿泊施設 表記、年代別集計/陽性者数の推移閉鎖</td>
+					<tr>
+						<td>2020. 5.14</td>
+						<td>民間企業の取り組み追加</td>
+					<tr>
+						<td>2020. 5. 6</td>
+						<td>自治体の更新履歴表示</td>
+					<tr>
+						<td>2020. 5. 4</td>
+						<td>18都道府県速報値に変更</td>
+					<tr>
+						<td>2020. 5. 3</td>
+						<td>オンライン診療マップリスト追加</td>
+					<tr>
+						<td>2020. 4.23</td>
+						<td>計算手法変更、更新履歴書式変更</td>
+					<tr>
+						<td>2020. 4.19</td>
+						<td>PCR検査実施件数をlog表記に変更、参考画像／動画追加</td>
+					<tr>
+						<td>2020. 4.18</td>
+						<td>年代別集計仕様変更</td>
+					<tr>
+						<td>2020. 4.17</td>
+						<td>都道府県別集計閉鎖、グラフ表示変更</td>
+					<tr>
+						<td>2020. 4.15</td>
+						<td>感染密度を現患者の密度に変更、地域分析追加</td>
+					<tr>
+						<td>2020. 4.12</td>
+						<td>世界の感染状況閉鎖、国内感染者数統計追加</td>
+					<tr>
+						<td>2020. 4.11</td>
+						<td>国内感染者数、関連リンク修正</td>
+					<tr>
+						<td>2020. 4. 5</td>
+						<td>全国クラスターマップ追加</td>
+					<tr>
+						<td>2020. 3.29</td>
+						<td>メニューボタン追加</td>
+					<tr>
+						<td>2020. 3.25</td>
+						<td>感染動態という形を捉えるWEBに仕様変更</td>
+					<tr>
+						<td>2020. 3.20</td>
+						<td>陽性患者の推移追加</td>
+					<tr>
+						<td>2020. 3.18</td>
+						<td>PCR検査数と陽性者数の推移追加</td>
+					<tr>
+						<td>2020. 3.15</td>
+						<td>クルーズ船事例、季節性インフルエンザ統計追加、日本、世界情勢追加</td>
+					<tr>
+						<td>2020. 3.12</td>
+						<td>サイト仕様変更</td>
+					<tr>
+						<td>2020. 3. 7</td>
+						<td>国内感染者数、世界の感染状況追加</td>
+					<tr>
+						<td>2020. 3. 2</td>
+						<td>最新情報に更新</td>
+					<tr>
+						<td>2020. 3. 1</td>
+						<td>本WEB公開</td>
+					</tr>
+				</table>
+			</div>
+		</section>
 
-	</div><!-- main -->
+		<hr>
+		※個人で開発したWEBです。正確な情報は厚生労働省のウェブサイト等をご参照ください。<br>
+		※このアプリに載っている情報は、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank">CC BY 4.0 <i class="fas fa-external-link-alt"></i></a>で公開しています。<br>
+		※リンク先のウェブサイトについては、リンク先の著作権・知的所有権に帰属しますので、ご注意ください。<br><br>
 
-	<div class="footer">
-		&copy; 仁志、防災エンジニア
+		<ul class="actions">
+			<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSf-WMoBJRTdA1bmN_SmQ-bsNGeLs1l737d3c9BUNuErjH-KBw/viewform" target="_blank" class="button primary">お問い合わせ</a></li>
+		</ul>
 	</div>
+
+	<!-- Footer -->
+	<footer id="footer">
+		<div class="inner">
+			<div class="addthis_inline_share_toolbox"></div>
+			<script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e6a1ea37a768e74"></script>
+			<ul class="copyright">
+				<li>&copy; 仁志</li>
+				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+	</footer>
+
+	<div id="page_top"><a href="#"></a></div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.poptrox.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+	<script src="assets/js/videoLightning.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/modal.js"></script>
+	<script>
+		$(function() {
+			var topBtn = $('#page_top');
+			topBtn.hide();
+
+			$(window).scroll(function() {
+
+				if ($(this).scrollTop() > 100) {
+					topBtn.fadeIn();
+
+				} else {
+					topBtn.fadeOut();
+				}
+			});
+
+			topBtn.click(function() {
+				$('body,html').animate({
+					scrollTop: 0
+				}, 1000);
+				return false;
+			});
+		});
+	</script>
+	<script>
+		$(function() {
+			$(".video-link").jqueryVideoLightning({
+				autoplay: 1,
+				color: "white"
+			});
+		});
+	</script>
+
+	<script src="assets/js/jquery.fancybox.js"></script>
+	<script>
+		$('[data-fancybox]').fancybox();
+	</script>
 
 </body>
 
