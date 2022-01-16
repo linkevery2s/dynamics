@@ -253,7 +253,7 @@ function get_kansen(){
 
 			/* divに掲載 */
 			for (var i = 0;  i < 47;  i++){
-			x[i].innerHTML = /*json_data.area[i].name_jp +*/"<center>現患者数／病床数<br>" + ncurrent[i].toLocaleString() + "／" + bed[i].toLocaleString() +  "</center>医療病床：" + hos_bed[i].toLocaleString() + "<br>宿泊施設：" + yado_bed[i].toLocaleString();
+			x[i].innerHTML = /*json_data.area[i].name_jp +*/"<center>現患者／病床数<br>" + ncurrent[i].toLocaleString() + "／" + bed[i].toLocaleString() +  "</center>医療病床：" + hos_bed[i].toLocaleString() + "<br>宿泊施設：" + yado_bed[i].toLocaleString();
 			}
 
 			/* 色分け判定 */
@@ -330,7 +330,7 @@ function get_kansen(){
 
 			/* divに掲載 */
 			for (var i = 0;  i < 47;  i++){
-			jusyo_hi[i].innerHTML = "<center>重症者数／病床数<br>" + heavy[i] + "／" + jusho_bed[i] + "</center>";
+			jusyo_hi[i].innerHTML = "<center>重症者／病床数<br>" + heavy[i] + "／" + jusho_bed[i] + "</center>";
 			}
 
 			/* 色分け判定 */
