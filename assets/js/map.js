@@ -60,7 +60,47 @@ for ( var k = 0; k < 47; k++){
 
 }
 
+function ini(){
+/* 新規陽性者 */
+	fetch('https://data.corona.go.jp/converted-json/covid19japan-npatients.json')
+	  .then(response => response.json())
+	  .then(data =>{
+	    day_yousei.innerHTML = data[data.length-1].adpatients.toLocaleString();
+	    total_yousei.innerHTML = data[data.length-1].npatients.toLocaleString();
+			day.innerHTML = data[data.length-1].date;
+	  }
+	  );
+
+/* 死亡者 */
+		fetch('https://data.corona.go.jp/converted-json/covid19japan-ndeaths.json')
+		  .then(response => response.json())
+		  .then(data =>{
+				const si = data[data.length-1].ndeaths - data[data.length-2].ndeaths;
+
+		    day_si.innerHTML = si.toLocaleString();
+		    total_si.innerHTML = data[data.length-1].ndeaths.toLocaleString();
+		  }
+		  );
+
+/* 入院治療等を要する者 */
+fetch('https://data.corona.go.jp/converted-json/covid19japan-ncures.json')
+	.then(response => response.json())
+	.then(data =>{
+		const nyu = data[data.length-1].ncures - data[data.length-2].ncures;
+		console.log(nyu);
+
+		day_nyu.innerHTML = nyu.toLocaleString();
+		total_nyu.innerHTML = data[data.length-1].ncures.toLocaleString();
+	}
+	);
+
+}
+
+
+
 function get_kansen(){
+
+	ini();
 
 	/* 厚労省データ */
 	var xhr = new XMLHttpRequest();
@@ -70,7 +110,7 @@ function get_kansen(){
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState === 4 && xhr.status === 200){
 			var json_data = eval( '('+xhr.responseText +')');
-			
+
 			syoki[0] = document.getElementById('ja_hokkaido');
 			syoki[1] = document.getElementById('ja_aomori');
 			syoki[2] = document.getElementById('ja_iwate');
@@ -129,7 +169,7 @@ function get_kansen(){
 				death[i] = yousei[i] - taiin[i] - ncurrent[i];
 			}
 
-			
+
 			/* divに掲載 */
 			for (var i = 0;  i < 47;  i++){
 			syoki[i].innerHTML = json_data.area[i].name_jp + "<br>検査数：" + kensa[i].toLocaleString() + "<br>陽性者：" + yousei[i].toLocaleString() + "<br>退院者：" + taiin[i].toLocaleString() + "<br>現患者：" + ncurrent[i].toLocaleString() + "<br>死亡者：" + death[i].toLocaleString();
@@ -140,11 +180,13 @@ function get_kansen(){
 			var total_taiin = taiin[0];
 			var total_ncurrent = ncurrent[0];
 			var total_death = death[0];
-			
+			var total_heavy = heavy[0];
+
 			for (var i = 1;  i < 47;  i++){
 				total_yousei += yousei[i];
 				total_taiin += taiin[i];
 				total_ncurrent += ncurrent[i];
+				total_heavy += heavy[i];
 					if( death[i] =="-"){
 					}else{
 				total_death += death[i];}
@@ -155,8 +197,9 @@ function get_kansen(){
 			txt += "<br>退院者：" + total_taiin.toLocaleString();
 			txt += "<br>現患者：" + total_ncurrent.toLocaleString();
 			txt += "<br>死亡者：" + total_death.toLocaleString();
-			document.getElementById('ja_ka').innerHTML = txt;
-			
+			//document.getElementById('ja_ka').innerHTML = txt;
+			day_ju.innerHTML = total_heavy.toLocaleString();
+
 			x[0] = document.getElementById('2ja_hokkaido');
 			x[1] = document.getElementById('2ja_aomori');
 			x[2] = document.getElementById('2ja_iwate');
@@ -204,19 +247,20 @@ function get_kansen(){
 			x[44] = document.getElementById('2ja_miyazaki');
 			x[45] = document.getElementById('2ja_kagoshima');
 			x[46] = document.getElementById('2ja_okinawa');
-			
+
 			/* 全国を非表示 */
-			document.getElementById('2ja_ka').style.backgroundColor = '#FFFFFF';
+			//document.getElementById('2ja_ka').style.backgroundColor = '#FFFFFF';
 
 			/* divに掲載 */
 			for (var i = 0;  i < 47;  i++){
-			x[i].innerHTML = json_data.area[i].name_jp +"<br><center>現患者数／病床数<br>" + ncurrent[i].toLocaleString() + "／" + bed[i].toLocaleString() +  "</center>医療病床：" + hos_bed[i].toLocaleString() + "<br>宿泊施設：" + yado_bed[i].toLocaleString();
+			x[i].innerHTML = /*json_data.area[i].name_jp +*/"<center>現患者数／病床数<br>" + ncurrent[i].toLocaleString() + "／" + bed[i].toLocaleString() +  "</center>医療病床：" + hos_bed[i].toLocaleString() + "<br>宿泊施設：" + yado_bed[i].toLocaleString();
 			}
 
 			/* 色分け判定 */
 			for(var i = 0;  i < 47;  i++){
 				if( ncurrent[i] > bed[i]){
 					x[i].style.backgroundColor = '#FF0000';
+					x[i].style.color = "#FFFFFF";
 				}
 				else if( ncurrent[i] > bed[i]*0.5){
 					x[i].style.backgroundColor = '#FF9900';
@@ -283,12 +327,12 @@ function get_kansen(){
 			jusyo_hi[45] = document.getElementById('jusyo_kagoshima');
 			jusyo_hi[46] = document.getElementById('jusyo_okinawa');
 
-			
+
 			/* divに掲載 */
 			for (var i = 0;  i < 47;  i++){
 			jusyo_hi[i].innerHTML = "<center>重症者／病床数<br>" + heavy[i] + "／" + jusho_bed[i] + "</center>";
 			}
-			
+
 			/* 色分け判定 */
 			for(var i = 0;  i < 47;  i++){
 				if( heavy[i] > jusho_bed[i]){
@@ -302,7 +346,7 @@ function get_kansen(){
 					jusyo_hi[i].style.color = "#000000";
 				}
 				else if( heavy[i] == "0"){
-					jusyo_hi[i].style.backgroundColor = '#0000FF';
+					//jusyo_hi[i].style.backgroundColor = '#0000FF';
 				}
 				else{
 					jusyo_hi[i].style.backgroundColor = '#CCFF00';
@@ -311,7 +355,7 @@ function get_kansen(){
 			}
 
 			/* density */
-			
+
 density[0]="5250000";
 density[1]="1246000";
 density[2]="1227000";
@@ -413,11 +457,11 @@ density[46]="1453000";
 				mitudo[i] = Math.round(ncurrent[i] / density[i] * 100000 * 10)/10;
 				y[i].innerHTML = json_data.area[i].name_jp + "<br><center>" + mitudo[i] +"</center>";
 			}
-			
+
 			/* 色分け判定 */
 			document.getElementById('3ja_ka').style.backgroundColor = '#FFFFFF';
 			for(var i = 0;  i < 47;  i++){
-			
+
 				if(mitudo[i] > 10){
 					y[i].style.backgroundColor = '#FF0000';
 				}
@@ -435,7 +479,7 @@ density[46]="1453000";
 				else{
 					y[i].style.backgroundColor = '#0000FF';
 				}
-			
+
 			}
 
 			/* 地域分析用 */
@@ -503,8 +547,8 @@ density[46]="1453000";
 			/* 要素数カウント */
 			zentai_youso = json_data3.length;
 
-			/* 日本全国非表示 */
-			document.getElementById('yous_ka').style.backgroundColor = '#FFFFFF';
+			/* 日本全国非表示
+			document.getElementById('yous_ka').style.backgroundColor = '#FFFFFF';*/
 
 				/* 都道府県 */
 				for( i = 0; i < 47; i++){
@@ -517,19 +561,19 @@ density[46]="1453000";
 					var y_7 = (json_data3[zentai_youso - 1].area[i].npatients - json_data3[zentai_youso - 7].area[i].npatients ) / (json_data3[zentai_youso - 1].area[i].ninspections - json_data3[zentai_youso - 7].area[i].ninspections) * 100;
 					y_7 = Math.round(y_7 * 10)/10;
 					}
-					
+
 					/* 検査数の変動がありマイナスになったら */
 					if ( y_7 < 0){
 						y_7 = "-";
 					}else{}
-					
+
 					if ( json_data3[zentai_youso - 1].area[i].ninspections - json_data3[zentai_youso - 2].area[i].ninspections == 0 ){
 						y_2 = "-";
 					}else{
 					var y_2 = (json_data3[zentai_youso - 1].area[i].npatients - json_data3[zentai_youso - 2].area[i].npatients ) / (json_data3[zentai_youso - 1].area[i].ninspections - json_data3[zentai_youso - 2].area[i].ninspections) * 100;
 					y_2 = Math.round(y_2 * 10)/10;
 					}
-					
+
 					/* 検査数の変動がありマイナスになったら */
 					if ( y_2 < 0){
 						y_2 = "-";
@@ -552,7 +596,7 @@ density[46]="1453000";
 
       var day1 = json_data.lastUpdate.split("-");
       document.getElementById('day').innerHTML = day1[0] + "." + day1[1] + "." + day1[2];
-      
+
     }
 
   };/* xhrの末端 */
@@ -568,24 +612,24 @@ function calculate(){
 		alert("都道府県を選択してください。");
 		exit;
 	}else{}
-	
+
 	var input_jinko = document.getElementById("jinko").value;
-	
+
 	if( input_jinko == ""){
 		alert("市町村の人口を入力してください。");
 		exit;
 	}else{}
-	
+
 	var answer1 = mitudo[select] * input_jinko / 10;
-	
+
 	var answer2 = mitudo_total[select] * input_jinko / 10;
-	
+
 	answer1 = Math.round(answer1 * 10)/10;
-	
+
 	answer2 = Math.round(answer2 * 10)/10;
-	
+
 	var vari = document.getElementsByName("vari");
-	
+
 	if( vari[0].checked ){
 
 		document.getElementById("answer").innerHTML = answer2;
@@ -593,7 +637,7 @@ function calculate(){
 
 		document.getElementById("answer").innerHTML = answer1;
 	}
-	
+
 }
 
 function func1(){

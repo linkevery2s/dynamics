@@ -102,9 +102,9 @@ h3.ti::before {
 		margin: 0 0 0.2em 0;
 		padding: 0.5em;
 		width: 100%;
-		color: #ffffff;
-		background-color: #0000FF;
-		font-weight: bold;
+		border: 1px solid gray;
+	  box-shadow: 2px 2px 4px gray;
+		//font-weight: bold;
 	}
 
 	.gra{
@@ -118,7 +118,28 @@ h3.ti::before {
 		font-weight: bold;
 		text-align: center;
 	}
-	
+
+	.total {
+	  border-radius: 0.35em;
+	  display: block;
+	  margin: 0 0 0.5em 0;
+	  padding: 0.5em;
+	  width: 100%;
+	  border: 1px solid gray;
+	  box-shadow: 2px 2px 4px gray;
+	}
+
+	#day_yousei, #day_ju, #day_nyu, #day_si{
+	font-weight: bold;
+	color: red;
+
+	}
+
+	#m-right{
+text-align: right;
+
+	}
+
 		@media screen and (max-width: 480px) {
 			.ja, .gra {
 					font-size: 0.7em;
