@@ -99,7 +99,7 @@ input, select, textarea {
 
 	body, input, select, textarea {
 		color: #383838;
-		font-family: "Hiragino Kaku Gothic OriN","Meiryo",sans-serif;
+		font-family: "Meiryo","Hiragino Kaku Gothic OriN",sans-serif;
 		font-size: 16pt;
 		font-weight: 400;
 		line-height: 1.75em;
@@ -156,7 +156,7 @@ input, select, textarea {
 		line-height: 1.5em;
 		/*border-bottom: 3px double #2E64FE;*/
 	}
-	
+
 	h2::before {
 	content: attr(data-en);
 	display: block;
@@ -219,7 +219,7 @@ input, select, textarea {
 		/*font-style: italic;*/
 		margin: 0 0 2em 0;
 		padding: 0.5em 0 0.5em 1.5em;
-		
+
 	}
 
 	code {
@@ -3116,8 +3116,8 @@ input, select, textarea {
 				position: relative;*/
 				text-align: center;
 				width: 100%;
-				
-				
+
+
 			}
 
 				#footer .icons {
@@ -3249,4 +3249,3 @@ input, select, textarea {
 			}
 
 	}
-
