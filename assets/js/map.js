@@ -172,7 +172,7 @@ function get_kansen(){
 
 			/* divに掲載 */
 			for (var i = 0;  i < 47;  i++){
-			syoki[i].innerHTML = json_data.area[i].name_jp + "<br>検査数：<span class='ken-moji'>" + kensa[i].toLocaleString() + "</span><br>陽性者：" + yousei[i].toLocaleString() + "<br>退院者：" + taiin[i].toLocaleString() + "<br>現患者：" + ncurrent[i].toLocaleString() + "<br>死亡者：" + death[i].toLocaleString();
+			syoki[i].innerHTML = json_data.area[i].name_jp + "<br>検査数：<span class='ken-moji'>" + kensa[i].toLocaleString() + "</span><br>陽性者：" + yousei[i].toLocaleString() + "<br>退院者：" + taiin[i].toLocaleString() + "<br>死亡者：" + death[i].toLocaleString();
 			}
 
 			/* 全体 */
