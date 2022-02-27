@@ -133,7 +133,7 @@ h3.ti::before {
   box-shadow: 2px 2px 4px gray;
 }
 
-#day_yousei, #day_ju, #day_nyu, #day_si {
+#day_yousei, #day_ju, #total_nyu, #day_si {
   font-weight: bold;
   color: red;
 }

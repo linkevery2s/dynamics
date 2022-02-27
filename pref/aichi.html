@@ -4,23 +4,25 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="description" content="厚生労働省の報道発表資料をもとに、新型コロナウイルスの感染状況を動態として可視化しました。"><meta property="og:title" content="COVID-19 感染症動態" /><meta property="og:type" content="website" /><meta property="og:image" content="https://covid19dynamics.netlify.app/images/top.jpg" /><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="COVID-19 感染症動態" /><meta name="twitter:description" content="厚生労働省の報道発表資料をもとに、新型コロナウイルスの感染状況を動態として可視化しました。" /><meta name="twitter:image" content="https://covid19dynamics.netlify.app/images/top.jpg" /><meta name="author" content="仁志">
-　<title>愛知県</title> 
+　<title>愛知県</title>
 　<link rel="stylesheet" href="lib/pref.css" />
 </head>
 <body><span id="return_t" onclick="return_top()">TOP</span>
   <h1>愛知県の状況</h1>
   <canvas id="LineChart"></canvas><br><br>
-  <canvas id="LineChart2"></canvas>
+  <canvas id="LineChart2"></canvas><br><br>
+  <canvas id="LineChart3"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 	<script src="lib/density.js"></script>
   <script>
-  
+
   var day = new Array();
   var now_patients = new Array();
   var mitudo = new Array();
   var jusho_patients = new Array();
-  
+  var deaths = new Array();
+
   /* 厚労省データ */
 	var xhr = new XMLHttpRequest();
 	var url = "https://www.stopcovid19.jp/data/covid19japan-all.json";
@@ -29,16 +31,17 @@
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState === 4 && xhr.status === 200){
 			var json_data = eval( '('+xhr.responseText +')');
-			
+
 			/* 要素数 */
 			var count_max = Number(json_data.length);
-  
+
   for (var i = 0;  i < count_max;  i++){
     /* 日にち */ day[i] = json_data[i].lastUpdate;
 	/* 現患者数 */ now_patients[i] = json_data[i].area[22].ncurrentpatients;
 	/* 重症者数 */ jusho_patients[i] = json_data[i].area[22].nheavycurrentpatients;
+  /* 死亡者数 */ deaths[i] = json_data[i].area[22].ndeaths;
   }
-  
+
   /* グラフ描画 */
   /* 現患者数 */
   var ctx = document.getElementById("LineChart");
@@ -68,7 +71,7 @@
         yAxes: [{
           ticks: {
             callback: function(value, index, values){
-              return  value +  '人'
+              return  value
             }
           }
         }]
@@ -104,7 +107,7 @@
         yAxes: [{
           ticks: {
             callback: function(value, index, values){
-              return  value +  '人'
+              return  value
             }
           }
         }]
@@ -112,6 +115,41 @@
     }
   });/* 重症者数 */
 
+  /* 死亡者数 */
+  var ctx3 = document.getElementById("LineChart3");
+  var LineChart3 = new Chart(ctx3, {
+    type: 'line',
+    data: {
+      labels: day,
+      datasets: [
+        {
+          label: '死亡者数',
+          data: deaths,
+          borderColor: "rgba(0,163,129,1)",
+          backgroundColor: "rgba(0,0,0,0)"
+        }
+      ],
+    },
+    options: {
+      title: {
+        display: true,
+        text: '死亡者数の推移',
+        fontSize: 20
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            callback: function(value, index, values){
+              return  value
+            }
+          }
+        }]
+      },
+    }
+  });/* 死亡者数 */
 
   		}else{}
   	}/* xhr */
